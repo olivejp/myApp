@@ -1,0 +1,9 @@
+Suivre les indications données sur cette page :
+    https://dashboard.ionicframework.com/welcome?f=first-app&t=angular
+
+Dans le cas où une exception arriverai avec la cause : @RequiresApi unknow alors installer les plugins :
+        https://github.com/dpa99c/cordova-plugin-androidx-adapter
+        https://github.com/dpa99c/cordova-plugin-androidx
+
+Si vous aviez déjà installer l'application depuis un autre PC, il peut y avoir un problème de signature différente.
+Dans ce cas, :désinstaller d'abord l'application de votre téléphone puis retenter de réinstaller l'application.
