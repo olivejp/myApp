@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab One
+      Présentation
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,13 +10,15 @@
     <ion-card class="welcome-card">
       <img src="/assets/shapes.svg" alt="" />
       <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
+        <ion-card-subtitle>Get super</ion-card-subtitle>
+        <ion-card-title>Bienvenu sur IONIC la bande</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
       </ion-card-content>
     </ion-card>
+    <ion-button color="success" (click)="lancerCapture()">Lancer capture écran</ion-button>
+    <ion-text>{{isConnected ? "Connected": "Disconnected"}}</ion-text>
     <ion-list lines="none">
       <ion-list-header>
         <ion-label>Resources</ion-label>
