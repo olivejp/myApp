@@ -18,7 +18,9 @@
       </ion-card-content>
     </ion-card>
     <ion-button color="success" (click)="lancerCapture()">Lancer capture écran</ion-button>
-    <ion-text>{{isConnected ? "Connected": "Disconnected"}}</ion-text>
+
+    <ion-item *ngIf="isConnected">Connected</ion-item>
+
     <ion-list lines="none">
       <ion-list-header>
         <ion-label>Resources</ion-label>

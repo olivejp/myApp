@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {NetworkService} from '../services/network.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
+import {Events} from '@ionic/angular';
 
 @Component({
     selector: 'app-tab1',
@@ -16,23 +17,30 @@ export class Tab1Page implements OnInit, OnDestroy {
     private isConnected: boolean;
 
     constructor(private barcodeScanner: BarcodeScanner,
-                private networkService: NetworkService) {
+                private networkService: NetworkService,
+                private events: Events,
+                private zone: NgZone) {
     }
 
     ngOnInit(): void {
+
+        this.events.subscribe('updateScreen', () => {
+            this.zone.run(() => {
+                console.log('force update');
+            });
+        });
+
         this.subDeconnection = this.networkService.subscribeToDisconnection().subscribe(value => {
-            console.log('disconnected');
-            this.isConnected = false;
+            this.isConnected = true;
         });
 
         this.subConnection = this.networkService.subscribeToConnection().subscribe(value => {
-            console.log('connected');
-            this.isConnected = true;
+            this.isConnected = false;
         });
 
         this.subChange = this.networkService.subscribeOnChange().subscribe(value => {
-            console.log('change');
-            this.isConnected = true;
+            this.isConnected = value.type === 'online';
+            this.events.publish('updateScreen');
         });
     }
 
