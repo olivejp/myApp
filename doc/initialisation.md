@@ -55,3 +55,66 @@ Dans le readme du plugin il n'est pas mentionné qu'il faut rajouter le module d
     })
     export class AppModule {}
 ```
+
+####Installation du plugin Signature
+Trouvé sur le net, ce composant angular qui permet de capturer un dessin :
+[https://www.youtube.com/watch?v=VXcdI_grUAA]
+
+Installation du composant suivant :
+
+    npm install angular2-signaturepad --save
+    
+Ajout du composant dans le app.module.ts
+
+```angular2
+    import {SignaturePadModule} from 'angular4-signaturepad';
+    
+    @NgModule({
+        declarations: [AppComponent],
+        entryComponents: [],
+        imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SignaturePadModule],
+````
+
+Insertion du composant dans la vue HTML
+
+```html
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+```
+
+Création des variables et méthodes nécessaires coté TypeScript
+
+```typescript
+import {SignaturePad} from 'angular4-signaturepad/signature-pad';
+
+@Component({
+    selector: 'app-tab1',
+    templateUrl: 'tab1.page.html',
+    styleUrls: ['tab1.page.scss']
+})
+export class Tab1Page implements OnInit, OnDestroy {
+
+    @ViewChild(SignaturePad, null) signaturePad: SignaturePad;
+
+    private downloadLink: string;
+
+    private signaturePadOptions: object = {
+        minWidth: 5,
+        canvasWidth: 500,
+        canvasHeight: 300
+    };
+
+    ...
+
+    drawComplete() {
+        // will be notified of szimek/signature_pad's onEnd event
+        this.downloadLink = this.signaturePad.toDataURL();
+    }
+
+    drawStart() {
+        // will be notified of szimek/signature_pad's onBegin event
+        console.log('begin drawing');
+    }
+}
+```
+
+####Installation du plugin File pour pouvoir enregistrer une image sur le téléphone
