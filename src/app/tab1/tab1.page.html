@@ -10,7 +10,7 @@
     <ion-button color="success" (click)="lancerCapture()">Lancer capture écran</ion-button>
     <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
     <ion-item *ngIf="isConnected">Connected</ion-item>
-    <ion-button color="success" (click)="clear()">Valider</ion-button>
+    <ion-item>{{isReady}}</ion-item>
+    <ion-button color="success" (click)="saveBitmap()">Valider</ion-button>
     <ion-button color="danger" (click)="clear()">Nettoyer</ion-button>
-    <ion-fab-button (click)="saveBitmap()">Download</ion-fab-button>
 </ion-content>

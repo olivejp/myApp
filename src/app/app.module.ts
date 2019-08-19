@@ -13,9 +13,14 @@ import {File} from '@ionic-native/file/ngx';
 import {NetworkService} from './services/network.service';
 import {Network} from '@ionic-native/network/ngx';
 import {SignaturePadModule} from 'angular4-signaturepad';
+import {ScannerComponent} from './scanner/scanner.component';
+import {SignatureComponent} from './signature/signature.component';
+import {MenuPrincipalComponent} from './menu-principal/menu-principal.component';
+import {SQLite} from '@ionic-native/sqlite/ngx';
+import {DatabaseServiceService} from './services/database.service';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SignaturePadModule],
     providers: [
@@ -24,7 +29,9 @@ import {SignaturePadModule} from 'angular4-signaturepad';
         BarcodeScanner,
         NetworkService,
         Network,
+        SQLite,
         File,
+        DatabaseServiceService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

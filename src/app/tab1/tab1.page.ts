@@ -2,7 +2,7 @@ import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {NetworkService} from '../services/network.service';
 import {Subscription} from 'rxjs';
-import {Events} from '@ionic/angular';
+import {Events, Platform} from '@ionic/angular';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
 import {File} from '@ionic-native/file/ngx';
 
@@ -19,6 +19,7 @@ export class Tab1Page implements OnInit, OnDestroy {
     private subConnection: Subscription;
     private subChange: Subscription;
     private isConnected: boolean;
+    private isReady: boolean;
     private downloadLink: string;
 
     private signaturePadOptions: object = { // passed through to szimek/signature_pad constructor
@@ -31,7 +32,8 @@ export class Tab1Page implements OnInit, OnDestroy {
                 private networkService: NetworkService,
                 private events: Events,
                 private zone: NgZone,
-                private file: File) {
+                private file: File,
+                private platform: Platform) {
     }
 
     ngOnInit(): void {
@@ -42,18 +44,23 @@ export class Tab1Page implements OnInit, OnDestroy {
             });
         });
 
-        this.subDeconnection = this.networkService.subscribeToDisconnection().subscribe(value => {
-            this.isConnected = true;
-        });
+        this.platform.ready()
+            .then(value => {
+                this.isReady = true;
+                this.subDeconnection = this.networkService.subscribeToDisconnection().subscribe(x => {
+                    this.isConnected = true;
+                });
 
-        this.subConnection = this.networkService.subscribeToConnection().subscribe(value => {
-            this.isConnected = false;
-        });
+                this.subConnection = this.networkService.subscribeToConnection().subscribe(y => {
+                    this.isConnected = false;
+                });
 
-        this.subChange = this.networkService.subscribeOnChange().subscribe(value => {
-            this.isConnected = value.type === 'online';
-            this.events.publish('updateScreen');
-        });
+                this.subChange = this.networkService.subscribeOnChange().subscribe(connectionStatus => {
+                    this.isConnected = connectionStatus.type === 'online';
+                    this.events.publish('updateScreen');
+                });
+            })
+            .catch(reason => this.isReady = false);
     }
 
     ngOnDestroy(): void {
@@ -93,9 +100,11 @@ export class Tab1Page implements OnInit, OnDestroy {
     saveBitmap() {
         this.createDirectory()
             .then(value => {
-                const path = this.file.dataDirectory .concat('/sido_tc3');
-                this.file.writeFile(path, 'test.png', this.downloadLink, null)
-                    .then(value1 => console.log('Fichier correctement sauvegardé.'))
+                const path = this.file.dataDirectory .concat('sido_tc3');
+                this.file.writeFile(path, 'test.png', this.downloadLink, {append: false, replace: true})
+                    .then(value1 => {
+                        console.log('Fichier correctement sauvegardé.' + value);
+                    })
                     .catch(reason => console.error('Erreur lors de l\'écriture du fichier : ' + reason));
             })
             .catch(reason => console.error('Erreur lors de la création du dossier : ' + reason));

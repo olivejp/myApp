@@ -1,0 +1,9 @@
+<ion-text>Veuillez signer pour le colis {{codeBarre}}</ion-text>
+<div style="border-style: groove">
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
+                   (onEndEvent)="drawComplete()"></signature-pad>
+</div>
+<ion-button size="large" color="success" (click)="saveBitmap()">Valider</ion-button>
+<ion-button size="large" color="primary" (click)="clear()">Nettoyer</ion-button>
+<ion-button size="large" color="danger" (click)="cancel()">Annuler</ion-button>
+<ion-img [src]="imgSource"></ion-img>
