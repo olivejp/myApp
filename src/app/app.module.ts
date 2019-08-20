@@ -17,7 +17,8 @@ import {ScannerComponent} from './scanner/scanner.component';
 import {SignatureComponent} from './signature/signature.component';
 import {MenuPrincipalComponent} from './menu-principal/menu-principal.component';
 import {SQLite} from '@ionic-native/sqlite/ngx';
-import {DatabaseServiceService} from './services/database.service';
+import {DatabaseService} from './services/database.service';
+import {FileImageService} from './services/file-image.service';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent],
@@ -31,7 +32,8 @@ import {DatabaseServiceService} from './services/database.service';
         Network,
         SQLite,
         File,
-        DatabaseServiceService,
+        DatabaseService,
+        FileImageService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

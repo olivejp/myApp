@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'signature',
     component: SignatureComponent
+  },
+  {
+    path: 'scanner',
+    component: ScannerComponent
   }
 ];
 @NgModule({

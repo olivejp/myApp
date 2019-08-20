@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {map,} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
-import {File} from '@ionic-native/file/ngx';
-import {IMAGE_FOLDER_NAME} from '../constant';
+import {FileImageService} from '../services/file-image.service';
 
 @Component({
     selector: 'app-signature',
@@ -23,7 +22,7 @@ export class SignatureComponent implements OnInit {
     };
 
     constructor(private route: ActivatedRoute,
-                private file: File,
+                private fileService: FileImageService,
                 private location: Location) {
     }
 
@@ -50,32 +49,8 @@ export class SignatureComponent implements OnInit {
     }
 
     saveBitmap() {
-        this.createDirectory()
-            .then(value => {
-                const path = this.file.dataDirectory.concat('sido_tc3');
-                this.file.writeFile(path, this.codeBarre + '.png', this.downloadLink, {append: false, replace: true})
-                    .then(va => {
-                        console.log('Signature correctement sauvegardé');
-                        this.imgSource = path;
-                    })
-                    .catch(reason => console.log('Erreur lors de l\'écriture du fichier : ' + reason));
-            })
-            .catch(reason => console.error('Erreur lors de la création du dossier : ' + reason));
-    }
-
-    /**
-     * Retournera true si le répertoire existe ou a bien été créé, false sinon.
-     */
-    createDirectory(): Promise<boolean> {
-        const uriDirectory = this.file.dataDirectory;
-        return new Promise<boolean>((resolve, reject) => {
-            this.file.checkDir(uriDirectory, IMAGE_FOLDER_NAME)
-                .then(value => resolve(true))
-                .catch(reason => {
-                    this.file.createDir(uriDirectory, IMAGE_FOLDER_NAME, false)
-                        .then(value => resolve(true))
-                        .catch(reason1 => reject(reason1));
-                });
-        });
+        this.fileService.saveFile(this.codeBarre + '.png', this.downloadLink)
+            .then(value => console.log('Signature correctement sauvegardé'))
+            .catch(reason => console.log('Erreur lors de l\'écriture du fichier : ' + reason));
     }
 }

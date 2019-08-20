@@ -16,12 +16,5 @@ export class ScannerComponent implements OnInit {
     ngOnInit() {
     }
 
-    lancerCapture() {
-        this.barcodeScanner.scan().then(barcodeData => {
-          console.log('Barcode data', barcodeData);
-          this.router.navigate(['/signature', {codeBarre: barcodeData.text}]);
-        }).catch(err => {
-            console.log('Error', err);
-        });
-    }
+
 }
