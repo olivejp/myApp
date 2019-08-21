@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {Router} from '@angular/router';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-menu-principal',
@@ -9,7 +10,9 @@ import {Router} from '@angular/router';
 })
 export class MenuPrincipalComponent implements OnInit {
 
-    constructor(private barcodeScanner: BarcodeScanner, private router: Router) {
+    constructor(private barcodeScanner: BarcodeScanner,
+                private router: Router,
+                private toastController: ToastController) {
     }
 
     ngOnInit() {
@@ -22,6 +25,14 @@ export class MenuPrincipalComponent implements OnInit {
         }).catch(err => {
             console.log('Error', err);
         });
+    }
+
+    async playToast() {
+        const toast = await this.toastController.create({
+            message: 'Your settings have been saved.',
+            duration: 2000
+        });
+        toast.present();
     }
 
 }

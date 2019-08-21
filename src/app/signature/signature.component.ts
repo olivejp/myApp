@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import {map} from 'rxjs/operators';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
 import {FileImageService} from '../services/file-image.service';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-signature',
@@ -23,7 +24,8 @@ export class SignatureComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private fileService: FileImageService,
-                private location: Location) {
+                private location: Location,
+                private toastController: ToastController) {
     }
 
     ngOnInit() {
@@ -50,7 +52,19 @@ export class SignatureComponent implements OnInit {
 
     saveBitmap() {
         this.fileService.saveFile(this.codeBarre + '.png', this.downloadLink)
-            .then(value => console.log('Signature correctement sauvegardé'))
-            .catch(reason => console.log('Erreur lors de l\'écriture du fichier : ' + reason));
+            .then(value => {
+                this.toastController.create({
+                    message: 'Signature correctement sauvegardé',
+                    animated: true,
+                    duration: 2000
+                }).then(toast => toast.present());
+            })
+            .catch(reason => {
+                this.toastController.create({
+                    message: 'Erreur lors de l\'écriture du fichier : ' + reason,
+                    animated: true,
+                    duration: 2000
+                }).then(toast => toast.present());
+            });
     }
 }
