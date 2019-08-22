@@ -24,6 +24,10 @@ Et accepter toutes les licenses qui ne l'auraient pas été.
 Il existe peut être un second répertoire SDK à la racine utilisateur. Dans ce cas lancer également la commande suivante :
     c:\Users\nom_utilisateur\AppData\Local\Android\sdk\tools\bin\sdkmanager --licenses
 
+####Problème de lancement de l'application
+Après avoir récupérer le projet sur un nouveau poste, cordova refusera de se lancer l'application si vous n'avez pas
+installer tous les plugins avec npm.
+
 ## Lancer l'application
 Pour lancer l'émulation sur un device taper la commande suivante :
 
@@ -118,3 +122,48 @@ export class Tab1Page implements OnInit, OnDestroy {
 ```
 
 ####Installation du plugin File pour pouvoir enregistrer une image sur le téléphone
+
+Documentation pour l'installation : https://ionicframework.com/docs/native/file#installation
+
+Documentation pour l'API : https://ionicframework.com/docs/v3/native/file/
+
+Exemple d'utilisation
+```typescript
+    /** Voici comment créer un nouveau répertoire.
+    * Dans notre cas nous utilisons le répertoire racine 'dataDirectory' mais plusieurs autres sont disponibles
+    * notamment si on veut utiliser le storage externe comme la SD card du téléphone. voir : https://github.com/apache/cordova-plugin-file
+    */
+    private createDirectory(imageFolder: string, replace: boolean) {
+        this.file.createDir(this.file.dataDirectory, imageFolder, replace)
+            .then(directoryEntry => console.log('Création réuissie : ' + directoryEntry.fullPath))
+            .catch(reason => console.log('Erreur lors de la création du dossier : ' + reason));
+    }
+
+    /**
+     * Fonction permettant la récupération d'un répertoire. Là encore on suppose que le répertoire racine est 'dataDirectory'
+     */
+    private async getDirectory(imageFolder: string): Promise<DirectoryEntry> {
+        return await this.file.resolveDirectoryUrl(this.file.dataDirectory.concat(imageFolder));
+    }
+
+    /**
+     * Permet de sauver un fichier
+     */
+    async saveFile(fileName: string, fileToSave: any, folderName: string, opts?: IWriteOptions, dir?: DirectoryEntry): Promise<any> {
+        opts = (opts) ? opts : {replace: true};
+        dir = (dir) ? dir : await this.getDirectory(folderName);
+        const directoryPath = dir.toURL();
+        const blob = await (await fetch(fileToSave)).blob();
+        return this.file.writeFile(directoryPath, fileName, blob, opts);
+    }
+```
+
+####Installation du plugin SQLite pour pouvoir faire persister des données sur le téléphone
+
+Documentation pour l'installation : https://ionicframework.com/docs/v3/native/sqlite/
+
+
+###Debugging
+####Sur un device :
+    Aller sur chrome et aller sur l'adresse chrome://inspect/#devices
+    Vous devriez retrouver le device connecté au poste, faites alors 'inspect' pour accéder à la console de l'application.
