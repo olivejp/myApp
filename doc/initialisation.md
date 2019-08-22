@@ -10,7 +10,7 @@
         https://github.com/dpa99c/cordova-plugin-androidx
 
 ####Problème de signature
-L'erreur vient du fait qu'une précédente installation de l'application était présente sur le téléphone.
+* L'erreur vient du fait qu'une précédente installation de l'application était présente sur le téléphone.
 Cette précédente installation avait été compilé sur un autre poste.
 Dans ce cas désinstaller d'abord l'application de votre téléphone avant de réinstaller.
 
@@ -25,8 +25,16 @@ Il existe peut être un second répertoire SDK à la racine utilisateur. Dans ce
     c:\Users\nom_utilisateur\AppData\Local\Android\sdk\tools\bin\sdkmanager --licenses
 
 ####Problème de lancement de l'application
-Après avoir récupérer le projet sur un nouveau poste, cordova refusera de se lancer l'application si vous n'avez pas
+
+* Installer les plugins
+    * Après avoir récupérer le projet sur un nouveau poste, cordova refusera de se lancer l'application si vous n'avez pas
 installer tous les plugins avec npm.
+
+* Ne pas lancer l'application depuis IntelliJ 2019.1
+    * Il y a un bug sur IntelliJ 2019.1 qui va récupérer l'openJdk fourni avec IntelliJ au lieu de prendre celui passé par JAVA_HOME.
+    Cela pose des soucis lors du lancement de ionic par le terminal d'IntelliJ.
+    Ionic a besoin d'une version de JAVA en 1.8. Dans ce cas, ne passer pas par le terminal mais directement par un terminal externe (Cmder) 
+ 
 
 ## Lancer l'application
 Pour lancer l'émulation sur un device taper la commande suivante :
@@ -42,7 +50,7 @@ Pour être dans le mode hot reload
 
 Dans le readme du plugin il n'est pas mentionné qu'il faut rajouter le module dans app.module.ts
 
-```angular2
+```javascript
     import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
     
     @NgModule({
@@ -70,7 +78,7 @@ Installation du composant suivant :
     
 Ajout du composant dans le app.module.ts
 
-```angular2
+```javascript
     import {SignaturePadModule} from 'angular4-signaturepad';
     
     @NgModule({
@@ -87,7 +95,7 @@ Insertion du composant dans la vue HTML
 
 Création des variables et méthodes nécessaires coté TypeScript
 
-```typescript
+```javascript
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
 
 @Component({
@@ -123,12 +131,12 @@ export class Tab1Page implements OnInit, OnDestroy {
 
 ####Installation du plugin File pour pouvoir enregistrer une image sur le téléphone
 
-Documentation pour l'installation : https://ionicframework.com/docs/native/file#installation
+Documentation pour l'installation : [https://ionicframework.com/docs/native/file#installation]
 
-Documentation pour l'API : https://ionicframework.com/docs/v3/native/file/
+Documentation pour l'API : [https://ionicframework.com/docs/v3/native/file/]
 
 Exemple d'utilisation
-```typescript
+```javascript
     /** Voici comment créer un nouveau répertoire.
     * Dans notre cas nous utilisons le répertoire racine 'dataDirectory' mais plusieurs autres sont disponibles
     * notamment si on veut utiliser le storage externe comme la SD card du téléphone. voir : https://github.com/apache/cordova-plugin-file
@@ -160,7 +168,7 @@ Exemple d'utilisation
 
 ####Installation du plugin SQLite pour pouvoir faire persister des données sur le téléphone
 
-Documentation pour l'installation : https://ionicframework.com/docs/v3/native/sqlite/
+Documentation pour l'installation : [https://ionicframework.com/docs/v3/native/sqlite/]
 
 
 ###Debugging
