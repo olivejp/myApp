@@ -29,8 +29,8 @@ export class MenuPrincipalComponent implements OnInit {
 
     async playToast() {
         const toast = await this.toastController.create({
-            message: 'Your settings have been saved.',
-            duration: 2000
+            message: 'Doit ouvrir recherche LDD',
+            duration: 3000
         });
         toast.present();
     }

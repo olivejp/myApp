@@ -1,9 +1,33 @@
-<ion-text>Veuillez signer pour le colis {{codeBarre}}</ion-text>
-<div style="border-style: groove">
-    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
-                   (onEndEvent)="drawComplete()"></signature-pad>
-</div>
-<ion-button size="large" color="success" (click)="saveBitmap()">Valider</ion-button>
-<ion-button size="large" color="primary" (click)="clear()">Nettoyer</ion-button>
-<ion-button size="large" color="danger" (click)="cancel()">Annuler</ion-button>
-<ion-img [src]="imgSource"></ion-img>
+<ion-header>
+    <ion-toolbar>{{codeBarre}}</ion-toolbar>
+</ion-header>
+<ion-content>
+    <div *ngIf="!signed" style="border-style: groove">
+        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
+                       (onEndEvent)="drawComplete()"></signature-pad>
+    </div>
+
+    <ion-fab *ngIf="!signed" vertical="bottom" horizontal="end">
+        <ion-fab-button>Actions</ion-fab-button>
+        <ion-fab-list side="start">
+            <ion-fab-button color="success" (click)="saveBitmap()">
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="primary" (click)="clear()">
+                <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="danger" (click)="cancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+    <div *ngIf="signed">
+        <img [src]="downloadLink"/>
+        <ion-toolbar>
+            <ion-buttons slot="end">
+                <ion-button size="large" color="success" (click)="validate()">Valider</ion-button>
+                <ion-button size="large" color="primary" (click)="retry()">Recommencer</ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </div>
+</ion-content>

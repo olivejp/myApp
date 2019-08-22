@@ -10,15 +10,16 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {File} from '@ionic-native/file/ngx';
-import {NetworkService} from './services/network.service';
+import {NetworkService} from './services/core/network.service';
 import {Network} from '@ionic-native/network/ngx';
 import {SignaturePadModule} from 'angular4-signaturepad';
 import {ScannerComponent} from './scanner/scanner.component';
 import {SignatureComponent} from './signature/signature.component';
 import {MenuPrincipalComponent} from './menu-principal/menu-principal.component';
 import {SQLite} from '@ionic-native/sqlite/ngx';
-import {DatabaseService} from './services/database.service';
-import {FileImageService} from './services/file-image.service';
+import {DatabaseService} from './services/core/database.service';
+import {FileImageService} from './services/core/file-image.service';
+import {DistributionLddService} from './services/distribution.ldd.service';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent],
@@ -35,6 +36,7 @@ import {FileImageService} from './services/file-image.service';
         DatabaseService,
         FileImageService,
         ToastController,
+        DistributionLddService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

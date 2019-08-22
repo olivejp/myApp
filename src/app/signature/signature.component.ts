@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {map} from 'rxjs/operators';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
-import {FileImageService} from '../services/file-image.service';
-import {ToastController} from '@ionic/angular';
+import {FileImageService} from '../services/core/file-image.service';
+import {DatabaseService} from '../services/core/database.service';
+import {DistributionLddService} from '../services/distribution.ldd.service';
 
 @Component({
     selector: 'app-signature',
@@ -13,19 +14,21 @@ import {ToastController} from '@ionic/angular';
 })
 export class SignatureComponent implements OnInit {
     @ViewChild(SignaturePad, null) signaturePad: SignaturePad;
-    private imgSource: string;
     private codeBarre: string;
     private downloadLink: string;
+    private signed: boolean;
+    private fileEntry: any;
     private signaturePadOptions: object = {
-        minWidth: 5,
-        canvasWidth: 500,
-        canvasHeight: 500
+        minWidth: 3,
+        canvasWidth: 400,
+        canvasHeight: 400
     };
 
-    constructor(private route: ActivatedRoute,
+    constructor(private router: Router,
+                private route: ActivatedRoute,
                 private fileService: FileImageService,
-                private location: Location,
-                private toastController: ToastController) {
+                private distributionLddService: DistributionLddService,
+                private location: Location) {
     }
 
     ngOnInit() {
@@ -39,7 +42,7 @@ export class SignatureComponent implements OnInit {
     }
 
     drawComplete() {
-        this.downloadLink = this.signaturePad.toDataURL();
+        // Do something when draw is complete.
     }
 
     drawStart() {
@@ -50,21 +53,28 @@ export class SignatureComponent implements OnInit {
         this.signaturePad.clear();
     }
 
+    retry() {
+        this.signaturePad.clear();
+        this.signed = false;
+    }
+
+    validate() {
+        this.distributionLddService.distribuer(this.codeBarre, this.fileEntry)
+            .then(value => {
+                console.log('Distribution correctement enregistrée en base');
+                this.router.navigate(['/']);
+            })
+            .catch(reason => console.log('Erreur lors de l\'insertion en base : ' + reason));
+    }
+
     saveBitmap() {
+        this.downloadLink = this.signaturePad.toDataURL('image/png', 0.5);
         this.fileService.saveFile(this.codeBarre + '.png', this.downloadLink)
             .then(value => {
-                this.toastController.create({
-                    message: 'Signature correctement sauvegardé',
-                    animated: true,
-                    duration: 2000
-                }).then(toast => toast.present());
+                this.fileEntry = value.fullPath;
+                this.signed = true;
+                alert('Fichier correctement créé');
             })
-            .catch(reason => {
-                this.toastController.create({
-                    message: 'Erreur lors de l\'écriture du fichier : ' + reason,
-                    animated: true,
-                    duration: 2000
-                }).then(toast => toast.present());
-            });
+            .catch(reason => alert('Echec de la sauvegarde du fichier : ' + reason));
     }
 }

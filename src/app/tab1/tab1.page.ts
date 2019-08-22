@@ -1,6 +1,6 @@
 import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
-import {NetworkService} from '../services/network.service';
+import {NetworkService} from '../services/core/network.service';
 import {Subscription} from 'rxjs';
 import {Events, Platform} from '@ionic/angular';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
