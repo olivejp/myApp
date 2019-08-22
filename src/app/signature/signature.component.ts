@@ -73,7 +73,6 @@ export class SignatureComponent implements OnInit {
             .then(value => {
                 this.fileEntry = value.fullPath;
                 this.signed = true;
-                alert('Fichier correctement créé');
             })
             .catch(reason => alert('Echec de la sauvegarde du fichier : ' + reason));
     }

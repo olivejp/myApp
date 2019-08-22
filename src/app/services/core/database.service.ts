@@ -16,11 +16,20 @@ export class DatabaseService {
      */
     checkTableExistence(tableName: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            this.getOrInitDB().then(sqliteObject => {
-                sqliteObject.executeSql('SELECT name FROM sqlite_master WHERE type=\'table\' AND name= ' + tableName)
-                    .then(value => resolve(true))
-                    .catch(reason => reject(reason));
-            });
+            this.getOrInitDB()
+                .then(sqliteObject => {
+                    const sql = 'SELECT * FROM ' + tableName;
+                    sqliteObject.executeSql(sql)
+                        .then(value => resolve(!!(value)))
+                        .catch(reason => {
+                            if (reason.rows) {
+                                resolve(true);
+                            } else {
+                                reject(reason);
+                            }
+                        });
+                })
+                .catch(reason => reject(reason));
         });
     }
 
@@ -34,7 +43,15 @@ export class DatabaseService {
         });
     }
 
-    async executeSql(sqlStatement: string, params?: any[]): Promise<any> {
-        return (await this.getOrInitDB()).executeSql(sqlStatement, params);
+    executeSql(sqlStatement: string, params?: any[]): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            this.getOrInitDB()
+                .then(sqlObject => {
+                    sqlObject.executeSql(sqlStatement, params)
+                        .then(value => resolve(value))
+                        .catch(reason => reject(reason));
+                })
+                .catch(reason => reject(reason));
+        });
     }
 }

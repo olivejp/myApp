@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {DatabaseService} from './core/database.service';
-import {path} from "@angular-devkit/core";
 
 
 @Injectable({
@@ -30,7 +29,7 @@ export class DistributionLddService {
                         resolve(true);
                     } else {
                         // tslint:disable-next-line:max-line-length
-                        const requestToCreate = 'CREATE TABLE NomTable (' +
+                        const requestToCreate = 'CREATE TABLE ' + DistributionLddService.TABLE_NAME + ' (' +
                             DistributionLddService.COL_ID + ' INTEGER PRIMARY KEY AUTOINCREMENT,' +
                             DistributionLddService.COL_DATE_CREATION + ' TEXT,' + // sous forme YYYY-MM-DD HH:MM:SS.SSS
                             DistributionLddService.COL_DATE_DISTRIBUTION + ' TEXT,' + // sous forme YYYY-MM-DD HH:MM:SS.SSS
