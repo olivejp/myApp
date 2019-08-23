@@ -64,7 +64,7 @@ export class SignatureComponent implements OnInit {
         distributionLdd.pathSignature = this.fileEntry;
         this.distributionLddService.distribuer(distributionLdd)
             .then(value => {
-                console.log('Distribution correctement enregistrée en base');
+                alert('Distribution correctement enregistrée en base');
                 this.router.navigate(['/']);
             })
             .catch(reason => console.log('Erreur lors de l\'insertion en base : ' + reason));
