@@ -68,7 +68,9 @@ export abstract class Entity {
         for (const entry of columns.entries()) {
             const key = entry[0];
             const value: ColumnDefinition = entry[1];
-            sqlInsert += value.name + ', ';
+            if (this[key]) {
+                sqlInsert += value.name + ', ';
+            }
         }
         sqlInsert = sqlInsert.substring(0, sqlInsert.length - 2);
 
@@ -76,8 +78,10 @@ export abstract class Entity {
         for (const entry of columns.entries()) {
             const key = entry[0];
             const value: ColumnDefinition = entry[1];
-            sqlInsert += (value.type === SQLiteType.TEXT) ? '\'' + this[key] + '\'' : this[key];
-            sqlInsert += ', ';
+            if (this[key]) {
+                sqlInsert += (value.type === SQLiteType.TEXT) ? '\'' + this[key] + '\'' : this[key];
+                sqlInsert += ', ';
+            }
         }
         sqlInsert = sqlInsert.substring(0, sqlInsert.length - 2);
         sqlInsert += ');';
@@ -163,7 +167,7 @@ export class DistributionLddEntity extends Entity {
     pathSignature: string;
 
     @Column({
-        name: 'type_description',
+        name: 'type_distribution',
         type: SQLiteType.TEXT,
         length: 25,
         comment: 'DISTRIBUTION ou NON_DISTRIBUTION'

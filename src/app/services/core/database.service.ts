@@ -16,12 +16,13 @@ export class DatabaseService {
 
     /**
      * Permet de vérifier l'existence d'une table dans la base
+     * On associe un timeout car dans le cas où la table n'existe pas, la promiseA ne renvoie rien (ni then, ni catch)
      */
     checkTableExistence(tableName: string): Promise<boolean> {
         const promiseA = new Promise<boolean>((resolve, reject) => {
             this.getOrInitDB()
                 .then(sqliteObject => {
-                    const sql = 'SELECT * FROM ' + tableName + ')';
+                    const sql = 'SELECT * FROM ' + tableName;
                     sqliteObject.executeSql(sql)
                         .then(value => resolve(!!(value)))
                         .catch(reason => {
