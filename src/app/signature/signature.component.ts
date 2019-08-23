@@ -4,8 +4,8 @@ import {Location} from '@angular/common';
 import {map} from 'rxjs/operators';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
 import {FileImageService} from '../services/core/file-image.service';
-import {DatabaseService} from '../services/core/database.service';
 import {DistributionLddService} from '../services/distribution.ldd.service';
+import {DistributionLddEntity} from "../domain/distribution-ldd.entity";
 
 @Component({
     selector: 'app-signature',
@@ -59,7 +59,10 @@ export class SignatureComponent implements OnInit {
     }
 
     validate() {
-        this.distributionLddService.distribuer(this.codeBarre, this.fileEntry)
+        const distributionLdd = new DistributionLddEntity();
+        distributionLdd.codeBarre = this.codeBarre;
+        distributionLdd.pathSignature = this.fileEntry;
+        this.distributionLddService.distribuer(distributionLdd)
             .then(value => {
                 console.log('Distribution correctement enregistrée en base');
                 this.router.navigate(['/']);
