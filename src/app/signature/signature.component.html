@@ -8,7 +8,9 @@
     </div>
 
     <ion-fab *ngIf="!signed" vertical="bottom" horizontal="end">
-        <ion-fab-button>Actions</ion-fab-button>
+        <ion-fab-button>
+            <ion-icon name="more"></ion-icon>
+        </ion-fab-button>
         <ion-fab-list side="start">
             <ion-fab-button color="success" (click)="saveBitmap()">
                 <ion-icon name="checkmark"></ion-icon>

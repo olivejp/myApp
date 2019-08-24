@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {SQLiteObject} from '@ionic-native/sqlite';
 import {DB_NAME} from '../../constant';
 import {SQLite} from '@ionic-native/sqlite/ngx';
-import {DistributionLddEntity} from '../../domain/distribution-ldd.entity';
 
 @Injectable({
     providedIn: 'root'
@@ -10,8 +9,6 @@ import {DistributionLddEntity} from '../../domain/distribution-ldd.entity';
 export class DatabaseService {
 
     constructor(private sqlite: SQLite) {
-        const distri: DistributionLddEntity = new DistributionLddEntity();
-        console.log(distri.getSqlCreate());
     }
 
     /**

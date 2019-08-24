@@ -1,11 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {map} from 'rxjs/operators';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
 import {FileImageService} from '../services/core/file-image.service';
-import {DistributionLddService} from '../services/distribution.ldd.service';
-import {DistributionLddEntity} from "../domain/distribution-ldd.entity";
+import {DistributionLddRepository} from '../services/distribution.ldd.repository';
+import {DistributionLddEntity} from '../domain/distribution-ldd.entity';
+import {Events} from '@ionic/angular';
 
 @Component({
     selector: 'app-signature',
@@ -27,14 +28,22 @@ export class SignatureComponent implements OnInit {
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private fileService: FileImageService,
-                private distributionLddService: DistributionLddService,
-                private location: Location) {
+                private distributionLddService: DistributionLddRepository,
+                private location: Location,
+                private events: Events,
+                private zone: NgZone) {
     }
 
     ngOnInit() {
         this.route.paramMap.pipe(map(params => {
             this.codeBarre = params.get('codeBarre');
         })).subscribe(value => console.log(value));
+
+        this.events.subscribe('updateScreenSignature', () => {
+            this.zone.run(() => {
+                console.log('force update');
+            });
+        });
     }
 
     cancel() {
@@ -54,8 +63,8 @@ export class SignatureComponent implements OnInit {
     }
 
     retry() {
-        this.signaturePad.clear();
         this.signed = false;
+        this.events.publish('updateScreenSignature');
     }
 
     validate() {

@@ -19,7 +19,7 @@ import {MenuPrincipalComponent} from './menu-principal/menu-principal.component'
 import {SQLite} from '@ionic-native/sqlite/ngx';
 import {DatabaseService} from './services/core/database.service';
 import {FileImageService} from './services/core/file-image.service';
-import {DistributionLddService} from './services/distribution.ldd.service';
+import {DistributionLddRepository} from './services/distribution.ldd.repository';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent],
@@ -36,7 +36,7 @@ import {DistributionLddService} from './services/distribution.ldd.service';
         DatabaseService,
         FileImageService,
         ToastController,
-        DistributionLddService,
+        DistributionLddRepository,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

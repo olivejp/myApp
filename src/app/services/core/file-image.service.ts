@@ -12,32 +12,6 @@ export class FileImageService {
 
     private imgDir: DirectoryEntry;
 
-    public static getContentType(base64Data: any) {
-        console.log('Récupération du type de content');
-        const block = base64Data.split(';');
-        return block[0].split(':')[1];
-    }
-
-    public static base64toBlob(b64Data, contentType): Blob {
-        console.log('Transformation du fichier en Blob');
-        contentType = contentType || '';
-        const sliceSize = 512;
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            byteArrays.push(byteArray);
-        }
-        return new Blob(byteArrays, {
-            type: contentType
-        });
-    }
-
     /**
      * Retournera true si le répertoire existe ou a bien été créé, false sinon.
      */
