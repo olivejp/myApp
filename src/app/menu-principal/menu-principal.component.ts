@@ -30,9 +30,9 @@ export class MenuPrincipalComponent implements OnInit {
         });
     }
 
-    async playToast() {
+    async playToast(text) {
         const toast = await this.toastController.create({
-            message: 'Doit ouvrir recherche LDD',
+            message: text,
             duration: 3000
         });
         toast.present();
@@ -40,7 +40,7 @@ export class MenuPrincipalComponent implements OnInit {
 
     lancerRecherche() {
         this.lddRepository.findById(this.numLdd)
-            .then(value => console.log(value))
+            .then(value => this.playToast(value.toString()))
             .catch(reason => console.error(reason));
     }
 }

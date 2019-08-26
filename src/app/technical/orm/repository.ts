@@ -46,6 +46,9 @@ export abstract class Repository {
     }
 
     findById(id: any): Promise<any> {
+        if (!id) {
+            return new Promise<any>(resolve => null);
+        }
         const entity = new this.entityConstructor();
         const proto = Object.getPrototypeOf(entity);
         let keyEntry;
