@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
+import {DistributionLddRepository} from '../services/distribution.ldd.repository';
 
 @Component({
     selector: 'app-menu-principal',
@@ -9,9 +10,11 @@ import {ToastController} from '@ionic/angular';
     styleUrls: ['./menu-principal.component.scss'],
 })
 export class MenuPrincipalComponent implements OnInit {
+    private numLdd;
 
     constructor(private barcodeScanner: BarcodeScanner,
                 private router: Router,
+                private lddRepository: DistributionLddRepository,
                 private toastController: ToastController) {
     }
 
@@ -35,4 +38,9 @@ export class MenuPrincipalComponent implements OnInit {
         toast.present();
     }
 
+    lancerRecherche() {
+        this.lddRepository.findById(this.numLdd)
+            .then(value => console.log(value))
+            .catch(reason => console.error(reason));
+    }
 }

@@ -1,6 +1,7 @@
 import {Column} from '../technical/orm/column.decorator';
 import {SQLiteType} from '../technical/orm/sqlite-type';
-import {Entity} from '../technical/orm/entity';
+import {Entity} from '../technical/orm/entity.decorator';
+
 
 @Entity('motif')
 export class MotifEntity {

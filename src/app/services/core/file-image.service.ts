@@ -47,7 +47,6 @@ export class FileImageService {
      * Permet de sauvegarder un fichier dans le répertoire
      */
     async saveFile(fileName: string, fileToSave: any, opts?: IWriteOptions, dir?: DirectoryEntry): Promise<any> {
-        console.log('Sauvegarde du fichier');
         opts = (opts) ? opts : {replace: true};
         dir = (dir) ? dir : this.imgDir;
         const directoryPath = dir.toURL();

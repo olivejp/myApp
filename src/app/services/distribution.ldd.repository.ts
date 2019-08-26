@@ -8,7 +8,7 @@ import {Repository} from '../technical/orm/repository';
 })
 export class DistributionLddRepository extends Repository {
     constructor(private databaseService: DatabaseService) {
-        super(databaseService);
+        super(databaseService, DistributionLddEntity.prototype.constructor);
     }
 
     static formatDate(dat: number): string {

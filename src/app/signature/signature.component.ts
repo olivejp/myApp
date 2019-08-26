@@ -73,7 +73,7 @@ export class SignatureComponent implements OnInit {
         distributionLdd.pathSignature = this.fileEntry;
         this.distributionLddService.distribuer(distributionLdd)
             .then(value => {
-                alert('Distribution correctement enregistrée en base');
+                console.log('Distribution correctement sauvegardée en base : ' + value);
                 this.router.navigate(['/']);
             })
             .catch(reason => console.log('Erreur lors de l\'insertion en base : ' + reason));
@@ -83,8 +83,10 @@ export class SignatureComponent implements OnInit {
         this.downloadLink = this.signaturePad.toDataURL('image/png', 0.5);
         this.fileService.saveFile(this.codeBarre + '.png', this.downloadLink)
             .then(value => {
+                console.log('Fichier correctement sauvegardé : ' + value.fullPath);
                 this.fileEntry = value.fullPath;
                 this.signed = true;
+                this.events.publish('updateScreenSignature');
             })
             .catch(reason => alert('Echec de la sauvegarde du fichier : ' + reason));
     }

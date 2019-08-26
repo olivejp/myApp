@@ -20,11 +20,12 @@ import {SQLite} from '@ionic-native/sqlite/ngx';
 import {DatabaseService} from './services/core/database.service';
 import {FileImageService} from './services/core/file-image.service';
 import {DistributionLddRepository} from './services/distribution.ldd.repository';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SignaturePadModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SignaturePadModule, FormsModule],
     providers: [
         StatusBar,
         SplashScreen,
