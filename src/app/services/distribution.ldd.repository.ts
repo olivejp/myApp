@@ -2,12 +2,14 @@ import {Injectable} from '@angular/core';
 import {DatabaseService} from './core/database.service';
 import {DistributionLddEntity, TypeDistribution} from '../domain/distribution-ldd.entity';
 import {Repository} from '../technical/orm/repository';
+import {RepositoryService} from '../technical/orm/service/repository.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DistributionLddRepository extends Repository {
-    constructor(private databaseService: DatabaseService) {
+export class DistributionLddRepository extends Repository<DistributionLddEntity, number> {
+    constructor(private databaseService: DatabaseService,
+                private repositoryService: RepositoryService) {
         super(databaseService, DistributionLddEntity.prototype.constructor);
     }
 
@@ -18,8 +20,9 @@ export class DistributionLddRepository extends Repository {
     }
 
     distribuer(distributionLdd: DistributionLddEntity): Promise<any> {
+        distributionLdd.synced = 'N';
         distributionLdd.typeDistribution = TypeDistribution.DISTRIBUTION;
         distributionLdd.dateDistribution = DistributionLddRepository.formatDate(Date.now());
-        return this.save(distributionLdd);
+        return this.repositoryService.save(distributionLdd);
     }
 }

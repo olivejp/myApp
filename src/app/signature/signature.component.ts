@@ -84,7 +84,7 @@ export class SignatureComponent implements OnInit {
         this.fileService.saveFile(this.codeBarre + '.png', this.downloadLink)
             .then(value => {
                 console.log('Fichier correctement sauvegardé : ' + value.fullPath);
-                this.fileEntry = value.fullPath;
+                this.fileEntry = value.name;
                 this.signed = true;
                 this.events.publish('updateScreenSignature');
             })

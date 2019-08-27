@@ -1,0 +1,32 @@
+<ion-input required="true" type="number" placeholder="Search numero LDD" clear-input="true"
+           [(ngModel)]="numLddSearch"></ion-input>
+<div *ngIf="distriLdd">
+    <ion-item>
+        <ion-label position="stacked">Id la distribution</ion-label>
+        <ion-input [(ngModel)]="distriLdd.id"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Chemin vers la signature</ion-label>
+        <ion-input [(ngModel)]="distriLdd.pathSignature"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Code barre objet</ion-label>
+        <ion-input [(ngModel)]="distriLdd.codeBarre"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Type distribution</ion-label>
+        <ion-input [(ngModel)]="distriLdd.typeDistribution"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Date création</ion-label>
+        <ion-input [(ngModel)]="distriLdd.dateCreation"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Synchronisé</ion-label>
+        <ion-input [(ngModel)]="distriLdd.synced"></ion-input>
+    </ion-item>
+    <ion-img *ngIf="imageUrl" [src]="imageUrl"></ion-img>
+</div>
+<ion-fab-button (click)="search()">
+    <ion-icon name="search"></ion-icon>
+</ion-fab-button>

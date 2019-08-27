@@ -10,37 +10,26 @@ export class FileImageService {
     constructor(private file: File) {
     }
 
-    private imgDir: DirectoryEntry;
-
     /**
      * Retournera true si le répertoire existe ou a bien été créé, false sinon.
      */
-    initializationImageDirectory(): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject) => {
-            this.file.checkDir(this.file.dataDirectory, IMAGE_FOLDER_NAME)
-                .then(value => this.getDirectory(resolve, reject))
-                .catch(reason => this.createDirectory(resolve, reject));
+    initializationImageDirectory(): Promise<DirectoryEntry> {
+        return this.file.checkDir(this.file.dataDirectory, IMAGE_FOLDER_NAME)
+            .then(() => this.getDirectory())
+            .catch(() => this.createDirectory());
+    }
+
+    private createDirectory(): Promise<DirectoryEntry> {
+        return new Promise<DirectoryEntry>((resolve, reject) => {
+            this.file.createDir(this.file.dataDirectory, IMAGE_FOLDER_NAME, true)
+                .then(directoryEntry => resolve(directoryEntry))
+                .catch(reason => reject('Erreur lors de la création du dossier : ' + reason));
         });
     }
 
-    private createDirectory(resolve: (value?: boolean | PromiseLike<boolean>) => void, reject: (reason?: any) => void) {
-        console.log('Création du répertoire');
-        this.file.createDir(this.file.dataDirectory, IMAGE_FOLDER_NAME, true)
-            .then(directoryEntry => {
-                this.imgDir = directoryEntry;
-                resolve(true);
-            })
-            .catch(reason1 => reject('Erreur lors de la création du dossier : ' + reason1));
-    }
-
-    private getDirectory(resolve: (value?: boolean | PromiseLike<boolean>) => void, reject: (reason?: any) => void) {
-        console.log('Récupération du répertoire');
-        this.file.resolveDirectoryUrl(this.file.dataDirectory.concat(IMAGE_FOLDER_NAME))
-            .then(directoryEntry => {
-                this.imgDir = directoryEntry;
-                resolve(true);
-            })
-            .catch(reason => reject('Erreur lors de la récupération du dossier : ' + reason));
+    getDirectory(): Promise<DirectoryEntry> {
+        return this.file.resolveDirectoryUrl(this.file.dataDirectory.concat(IMAGE_FOLDER_NAME))
+            .then(directoryEntry => new Promise<DirectoryEntry>(resolve => resolve(directoryEntry)));
     }
 
     /**
@@ -48,7 +37,7 @@ export class FileImageService {
      */
     async saveFile(fileName: string, fileToSave: any, opts?: IWriteOptions, dir?: DirectoryEntry): Promise<any> {
         opts = (opts) ? opts : {replace: true};
-        dir = (dir) ? dir : this.imgDir;
+        dir = (dir) ? dir : await this.getDirectory();
         const directoryPath = dir.toURL();
         const blob = await (await fetch(fileToSave)).blob();
         return this.file.writeFile(directoryPath, fileName, blob, opts);

@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {ScannerComponent} from './scanner/scanner.component';
 import {SignatureComponent} from './signature/signature.component';
 import {MenuPrincipalComponent} from './menu-principal/menu-principal.component';
+import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'scanner',
     component: ScannerComponent
+  },
+  {
+    path: 'recherche-ldd',
+    component: RechercheLddComponent
   }
 ];
 @NgModule({

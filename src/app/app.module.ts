@@ -21,9 +21,11 @@ import {DatabaseService} from './services/core/database.service';
 import {FileImageService} from './services/core/file-image.service';
 import {DistributionLddRepository} from './services/distribution.ldd.repository';
 import {FormsModule} from '@angular/forms';
+import {RepositoryService} from './technical/orm/service/repository.service';
+import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
 
 @NgModule({
-    declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent],
+    declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SignaturePadModule, FormsModule],
     providers: [
@@ -38,6 +40,7 @@ import {FormsModule} from '@angular/forms';
         FileImageService,
         ToastController,
         DistributionLddRepository,
+        RepositoryService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

@@ -10,7 +10,7 @@ import {DistributionLddRepository} from '../services/distribution.ldd.repository
     styleUrls: ['./menu-principal.component.scss'],
 })
 export class MenuPrincipalComponent implements OnInit {
-    private numLdd;
+
 
     constructor(private barcodeScanner: BarcodeScanner,
                 private router: Router,
@@ -36,11 +36,5 @@ export class MenuPrincipalComponent implements OnInit {
             duration: 3000
         });
         toast.present();
-    }
-
-    lancerRecherche() {
-        this.lddRepository.findById(this.numLdd)
-            .then(value => this.playToast(value.toString()))
-            .catch(reason => console.error(reason));
     }
 }
