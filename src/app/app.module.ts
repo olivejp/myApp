@@ -23,11 +23,18 @@ import {DistributionLddRepository} from './services/distribution.ldd.repository'
 import {FormsModule} from '@angular/forms';
 import {RepositoryService} from './technical/orm/service/repository.service';
 import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
+import {IonicStorageModule} from '@ionic/storage';
+import {INDEXEDDB_KEY, INDEXEDDB_NAME} from './constant';
+import {IndexeddbService} from './technical/orm/service/indexeddb.service';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SignaturePadModule, FormsModule],
+    imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot({
+        storeName: INDEXEDDB_NAME,
+        dbKey: INDEXEDDB_KEY,
+        driverOrder: ['indexeddb']
+    }), AppRoutingModule, SignaturePadModule, FormsModule],
     providers: [
         StatusBar,
         SplashScreen,
@@ -38,6 +45,7 @@ import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
         File,
         DatabaseService,
         FileImageService,
+        IndexeddbService,
         ToastController,
         DistributionLddRepository,
         RepositoryService,

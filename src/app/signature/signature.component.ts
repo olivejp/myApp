@@ -67,10 +67,18 @@ export class SignatureComponent implements OnInit {
         this.events.publish('updateScreenSignature');
     }
 
-    validate() {
-        const distributionLdd = new DistributionLddEntity();
-        distributionLdd.codeBarre = this.codeBarre;
-        distributionLdd.pathSignature = this.fileEntry;
+    async validate() {
+        let distributionLdd: DistributionLddEntity;
+        distributionLdd = await this.distributionLddService.getByCodeBarre(this.codeBarre);
+        if (distributionLdd) {
+            distributionLdd.statut = 'UPDATED';
+        } else {
+            distributionLdd = new DistributionLddEntity();
+            distributionLdd.codeBarre = this.codeBarre;
+            distributionLdd.pathSignature = this.fileEntry;
+            distributionLdd.statut = 'NEW';
+        }
+
         this.distributionLddService.distribuer(distributionLdd)
             .then(value => {
                 console.log('Distribution correctement sauvegardée en base : ' + value);

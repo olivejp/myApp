@@ -3,7 +3,8 @@ import {DistributionLddEntity} from '../domain/distribution-ldd.entity';
 import {DistributionLddRepository} from '../services/distribution.ldd.repository';
 import {File} from '@ionic-native/file/ngx';
 import {IMAGE_FOLDER_NAME} from '../constant';
-import {ToastController} from "@ionic/angular";
+import {ToastController} from '@ionic/angular';
+import {IndexeddbService} from '../technical/orm/service/indexeddb.service';
 
 @Component({
     selector: 'app-recherche-ldd',
@@ -17,7 +18,8 @@ export class RechercheLddComponent implements OnInit {
 
     constructor(private lddRepository: DistributionLddRepository,
                 private file: File,
-                private toastController: ToastController) {
+                private toastController: ToastController,
+                private storage: IndexeddbService) {
     }
 
     ngOnInit() {
@@ -48,5 +50,11 @@ export class RechercheLddComponent implements OnInit {
             duration: 3000
         });
         toast.present();
+    }
+
+    async getAll() {
+        await this.storage.setLocalData('ldd', ['Salut', 'Hello', 'Buongiorno']);
+        const returnedValue = await this.storage.getLocalData('Bonjour');
+        console.log(returnedValue);
     }
 }
