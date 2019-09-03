@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Identification</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>Login</ion-label>
+                <ion-input type="text" placeholder="Paul"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Password</ion-label>
+                <ion-input type="password" palceholder="OLIVE"></ion-input>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-button color="success" (click)="signIn()"> Sign In</ion-button>
+    <ion-button color="primary" [routerLink]="['/menu']">Menu</ion-button>
+</ion-content>

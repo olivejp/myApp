@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Text To Speech</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content text-center [scrollEvents]="true">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-input class="ion-css" placeholder="Text to speech" [(ngModel)]="textToSpeech"></ion-input>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-button (click)="parle()">Parle</ion-button>
+    <ion-button color="success" [routerLink]="['/menu']">Menu</ion-button>
+</ion-content>

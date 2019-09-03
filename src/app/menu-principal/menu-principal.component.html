@@ -1,6 +1,7 @@
-<section style="text-align: center">
-    <ion-button size="large" color="primary" (click)="playToast('Hello')">Recherche LDD</ion-button>
-    <ion-button size="large" color="primary" (click)="lancerCapture()">Scanner Objet</ion-button>
+<ion-content text-center [scrollEvents]="true">
+    <ion-button size="large" color="primary" (click)="playActionSheet()">Rechercher LDD</ion-button>
+    <ion-button size="large" color="primary" (click)="lancerCapture()">Scanner objet</ion-button>
     <ion-button size="large" color="primary" [routerLink]="['/recherche-ldd']">Rechercher Objet</ion-button>
-</section>
-
+    <ion-button size="large" color="primary" [routerLink]="['/login']">Login</ion-button>
+    <ion-button size="large" color="primary" [routerLink]="['/text-to-speech']">Text To Speech</ion-button>
+</ion-content>

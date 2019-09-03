@@ -45,6 +45,10 @@ Pour être dans le mode hot reload
 
     ionic cordova run android -l
 
+Pour servir l'application sur le web (se rendre ensuite sur un navigateur et aller sur le localhost:8100)
+    
+    ionic serve
+
 ####Installation du plugin de lecture de code barre
 [https://ionicframework.com/docs/native/barcode-scanner]
 

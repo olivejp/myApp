@@ -26,15 +26,23 @@ import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
 import {IonicStorageModule} from '@ionic/storage';
 import {INDEXEDDB_KEY, INDEXEDDB_NAME} from './constant';
 import {IndexeddbService} from './technical/orm/service/indexeddb.service';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot({
-        storeName: INDEXEDDB_NAME,
-        dbKey: INDEXEDDB_KEY,
-        driverOrder: ['indexeddb']
-    }), AppRoutingModule, SignaturePadModule, FormsModule],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        IonicStorageModule.forRoot({
+            storeName: INDEXEDDB_NAME,
+            dbKey: INDEXEDDB_KEY,
+            driverOrder: ['indexeddb']
+        }),
+        AppRoutingModule,
+        SignaturePadModule,
+        FormsModule
+        ],
     providers: [
         StatusBar,
         SplashScreen,
@@ -49,6 +57,7 @@ import {IndexeddbService} from './technical/orm/service/indexeddb.service';
         ToastController,
         DistributionLddRepository,
         RepositoryService,
+        Geolocation,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
     <ion-toolbar>{{codeBarre}}</ion-toolbar>
 </ion-header>
 <ion-content>
-    <div *ngIf="!signed" style="border-style: groove">
+    <div *ngIf="!signed" style="border-style: dotted; margin: 20px">
         <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
                        (onEndEvent)="drawComplete()"></signature-pad>
     </div>

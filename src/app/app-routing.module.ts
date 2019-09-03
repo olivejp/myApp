@@ -8,8 +8,14 @@ import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
 const routes: Routes = [
   {
     path: '',
-    component: MenuPrincipalComponent
+    redirectTo: '/login',
+    pathMatch: 'full'
+    // component: MenuPrincipalComponent
     // loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'menu',
+    component: MenuPrincipalComponent
   },
   {
     path: 'signature',
@@ -22,7 +28,10 @@ const routes: Routes = [
   {
     path: 'recherche-ldd',
     component: RechercheLddComponent
-  }
+  },
+  { path: 'login',    loadChildren: './login/login.module#LoginPageModule'  },
+  { path: 'text-to-speech', loadChildren: './text-to-speech/text-to-speech.module#TextToSpeechPageModule' }
+
 ];
 @NgModule({
   imports: [
