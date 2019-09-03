@@ -26,7 +26,9 @@ import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
 import {IonicStorageModule} from '@ionic/storage';
 import {INDEXEDDB_KEY, INDEXEDDB_NAME} from './constant';
 import {IndexeddbService} from './technical/orm/service/indexeddb.service';
+import {GeolocalService} from './services/geolocal.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent],
@@ -41,7 +43,8 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
         }),
         AppRoutingModule,
         SignaturePadModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule
         ],
     providers: [
         StatusBar,
@@ -57,6 +60,7 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
         ToastController,
         DistributionLddRepository,
         RepositoryService,
+        GeolocalService,
         Geolocation,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],

@@ -30,7 +30,8 @@ const routes: Routes = [
     component: RechercheLddComponent
   },
   { path: 'login',    loadChildren: './login/login.module#LoginPageModule'  },
-  { path: 'text-to-speech', loadChildren: './text-to-speech/text-to-speech.module#TextToSpeechPageModule' }
+  { path: 'text-to-speech', loadChildren: './text-to-speech/text-to-speech.module#TextToSpeechPageModule' },  { path: 'geolocalisation', loadChildren: './geolocalisation/geolocalisation.module#GeolocalisationPageModule' }
+
 
 ];
 @NgModule({

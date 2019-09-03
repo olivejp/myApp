@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Geolocalisation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf=position>
+  <ion-grid>
+    <ion-row>
+      <ion-label>Altitude</ion-label>
+      <ion-text>{{position.coords.altitude}}</ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-label>Latitude</ion-label>
+      <ion-text>{{position.coords.latitude}}</ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-label>Longitude</ion-label>
+      <ion-text>{{position.coords.longitude}}</ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-label>Speed</ion-label>
+      <ion-text>{{position.coords.speed}}</ion-text>
+    </ion-row>
+  </ion-grid>
+</ion-content>

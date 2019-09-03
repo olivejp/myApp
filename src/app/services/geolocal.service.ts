@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Geolocation, Geoposition} from '@ionic-native/geolocation/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class GeolocalService {
 
   constructor(private geolocation: Geolocation) { }
 
-  getLocalisation(): Observable {
-    Observable.fromPromise(this.geolocation)
+  getLocalisation(): Promise<Geoposition> {
+    return this.geolocation.getCurrentPosition();
   }
 }
