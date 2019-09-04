@@ -32,9 +32,17 @@ jobs:
       - run: 
           name: "Generate apk"
           command: |
-            ionic cordova build android --release --prod --keystore=sido-mobile-keystore.jks --alias=sido-mobile-keystore
+            ionic cordova build android --release --prod
             mkdir -p /tmp/apk
-            cp -r platforms/android/app/build/outputs/apk/debug/app-debug.apk /tmp/apk
+            cp -r platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk /tmp/apk
+      - run:
+          name: "Sign the APK"
+          command: |
+            jarsigner' -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk sido-mobile-keystore
+      - run:
+          name: "ZipAlign the APK"
+          command: |
+            zipalign -v 4 app-release-unsigned.apk jp-mobile.apk
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
