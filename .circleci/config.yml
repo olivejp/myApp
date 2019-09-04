@@ -8,6 +8,11 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps: 
       - checkout
+      - run:
+          name: "Delete artifactory"
+          command: |
+            echo 'Suppression de l APK'
+            unlink jp-mobile.apk || true
       - run: 
           name: "Install gradle"
           command: |
@@ -43,6 +48,10 @@ jobs:
           name: "ZipAlign the APK"
           command: |
             ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile.apk || true
+      - run:
+          name: "Deploy to store"
+          command: |
+            ./gradle publishApkRelease
       - store_artifacts: 
           path: /tmp/apk
           destination: apks

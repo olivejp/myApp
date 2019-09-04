@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        // Plugin permettant de publier directement sur le store
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
+    }
+    
+}
+
+// Applique le plugin pour la publication dans le store
+apply plugin: 'com.github.triplet.play'
+
+play {
+    serviceAccountEmail = "bitrise-deploy@api-6509887218928901077-258039.iam.gserviceaccount.com"
+    track = 'internal'
+    pk12File = file('Google Play Android Developer-2ca1dac78655.p12')
+    resolutionStrategy = "ignore"
+    artifactDir = file("/tmp/apk")
+}

@@ -7,7 +7,8 @@
 
   <base href="/" />
 
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
 
@@ -20,6 +21,37 @@
 
 <body>
   <app-root></app-root>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+  <script>
+    // Firebase App (the core Firebase SDK) is always required and
+    // must be listed before other Firebase SDKs
+    var firebase = require("firebase/app");
+
+    // Add the Firebase products that you want to use
+    require("firebase/database");
+
+
+    var firebaseConfig = {
+      apiKey: "AIzaSyAYlTSOlIzC1LrQsuJatt1wTgHpdGeAYQY",
+      authDomain: "sidomobile-c6d38.firebaseapp.com",
+      databaseURL: "https://sidomobile-c6d38.firebaseio.com",
+      projectId: "sidomobile-c6d38",
+      storageBucket: "sidomobile-c6d38.appspot.com",
+      messagingSenderId: "821950116518",
+      appId: "1:821950116518:web:0dc21a5ca694ce954aba67"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+  </script>
+
 </body>
 
 </html>
