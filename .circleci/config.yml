@@ -51,7 +51,7 @@ jobs:
       - run:
           name: "Deploy to store"
           command: |
-            gradle publishApkRelease
+            ./gradlew publishApkRelease
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
