@@ -179,3 +179,27 @@ Documentation pour l'installation : [https://ionicframework.com/docs/v3/native/s
 ####Sur un device :
     Aller sur chrome et aller sur l'adresse chrome://inspect/#devices
     Vous devriez retrouver le device connecté au poste, faites alors 'inspect' pour accéder à la console de l'application.
+
+
+##Formation
+##Création d'un keystore à partir d'Android Studio
+
+keystore path = C:\Users\ecole1\sido-mobile-keystore.jks
+password = password
+alias = sido-mobile-keystore
+password de la clé = mobile-keystore
+
+--Signer une application
+---Dans le play store, je n'ai pas accepté que Google gère la clé. Je vais la gérer moi même.
+---Trouvé le tuto suivant : https://ionicframework.com/docs/v1/guide/publishing.html
+---Je lance la commande suivante pour pouvoir générer une apk non signé
+
+====> ionic cordova build android --prod --release --keystore=sido-mobile-keystore.jks --alias=sido-mobile-keystore
+
+Cela va générer un apk non signé.
+
+Pour le signer je fais le code suivant :
+====>'C:\Program Files\Java\jdk1.8.0_181\bin\jarsigner' -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks .\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk sido-mobile-keystore
+
+Je dois ensuite faire le zipalign
+====>C:\Users\ecole1\AppData\Local\Android\Sdk\build-tools\29.0.2\zipalign -v 4 app-release-unsigned.apk jp-mobile.apk
