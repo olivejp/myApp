@@ -42,7 +42,7 @@ jobs:
       - run:
           name: "ZipAlign the APK"
           command: |
-            zipalign -v 4 app-release-unsigned.apk jp-mobile.apk
+            ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile.apk || true
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
