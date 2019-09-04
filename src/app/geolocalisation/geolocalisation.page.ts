@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class GeolocalisationPage implements OnInit, OnDestroy {
 
-  private position: Geoposition;
-  private formatedDate: string;
-  private obsInterval: Observable<Geoposition>;
+  position: Geoposition;
+  formatedDate: string;
+  obsInterval: Observable<Geoposition>;
 
   constructor(private geolocation: GeolocalService) { }
 

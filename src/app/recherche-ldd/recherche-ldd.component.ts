@@ -13,7 +13,7 @@ import {IndexeddbService} from '../technical/orm/service/indexeddb.service';
 })
 export class RechercheLddComponent implements OnInit {
     private numLddSearch: number;
-    private distriLdd: DistributionLddEntity;
+    distriLdd: DistributionLddEntity;
     private imageUrl;
 
     constructor(private lddRepository: DistributionLddRepository,

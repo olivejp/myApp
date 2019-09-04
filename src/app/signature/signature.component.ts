@@ -15,9 +15,9 @@ import {Events} from '@ionic/angular';
 })
 export class SignatureComponent implements OnInit {
     @ViewChild(SignaturePad, null) signaturePad: SignaturePad;
-    private codeBarre: string;
+    codeBarre: string;
     private downloadLink: string;
-    private signed: boolean;
+    signed: boolean;
     private fileEntry: any;
     private signaturePadOptions: object = {
         minWidth: 3,

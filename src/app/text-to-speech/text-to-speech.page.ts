@@ -8,7 +8,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 })
 export class TextToSpeechPage implements OnInit {
 
-    private textToSpeech: string;
+    textToSpeech: string;
 
     constructor(private tts: TextToSpeech) { }
 
