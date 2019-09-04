@@ -38,7 +38,7 @@ jobs:
       - run:
           name: "Sign the APK"
           command: |
-            yes password | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk sido-mobile-keystore
+            yes password | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk sido-mobile-keystore || true
       - run:
           name: "ZipAlign the APK"
           command: |
