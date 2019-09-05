@@ -1,4 +1,7 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'com.github.triplet.play' version '2.3.0'
+}
 
 buildscript {
     repositories {
@@ -9,7 +12,6 @@ buildscript {
         // Plugin permettant de publier directement sur le store
         classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
     }
-    
 }
 
 // Applique le plugin pour la publication dans le store
