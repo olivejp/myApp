@@ -8,12 +8,12 @@ jobs:
       - run:
           name: "Deploy to store"
           command: |
-            apt-get install jq
-            apt-get install openssl
-            apt-get install curl
-            apt-get install sed
+            sudo apt-get install jq
+            sudo apt-get install openssl
+            sudo apt-get install curl
+            sudo apt-get install sed
             chmod +x .circleci/upload-playstore.sh
-            .circleci/upload-playstore.sh /tmp/apk/jp-mobile-1.apk 2 internal false
+            .circleci/upload-playstore.sh jp-mobile-2.apk 2 internal false
   build: 
     docker: 
       - image: circleci/android:api-29-node
@@ -79,8 +79,8 @@ workflows:
   version: 2
   only_deploy: 
     jobs:
-      - build
+#      - build
       - deploy:
-          requires:
-            - build
+#          requires:
+#            - build
           context: env
