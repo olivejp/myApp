@@ -14,7 +14,7 @@ jobs:
             sudo apt-get install curl
             sudo apt-get install sed
             chmod +x .circleci/upload-playstore.sh
-            .circleci/upload-playstore.sh jp-mobile-2.apk 2 internal false
+            .circleci/upload-playstore.sh jp-mobile-.apk 2 internal false
   build: 
     docker: 
       - image: circleci/android:api-29-node
@@ -81,9 +81,9 @@ workflows:
   version: 2
   only_deploy: 
     jobs:
-      - build:
-          context: env
+#      - build:
+#          context: env
       - deploy:
-          requires:
-            - build
+#          requires:
+#            - build
           context: env
