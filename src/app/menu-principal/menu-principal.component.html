@@ -5,4 +5,10 @@
     <ion-button size="large" color="primary" [routerLink]="['/login']">Login</ion-button>
     <ion-button size="large" color="primary" [routerLink]="['/text-to-speech']">Text To Speech</ion-button>
     <ion-button size="large" color="primary" [routerLink]="['/geolocalisation']">Geolocalisation</ion-button>
+    <ion-button size="large" color="primary" (click)="appelWs()">Test Appel WS</ion-button>
+    <div *ngIf="annonces">
+        <div *ngFor="let annonce of annonces">
+            <app-annonce [annonce]="annonce">></app-annonce>
+        </div>
+    </div>
 </ion-content>

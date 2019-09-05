@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 import {DistributionLddRepository} from '../services/distribution.ldd.repository';
 import { ActionSheetController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { Annonce } from '../domain/annonce.entity';
 
 @Component({
     selector: 'app-menu-principal',
@@ -11,11 +13,15 @@ import { ActionSheetController } from '@ionic/angular';
     styleUrls: ['./menu-principal.component.scss'],
 })
 export class MenuPrincipalComponent implements OnInit {
+
+    private annonces: any;
+
     constructor(private actionSheetController: ActionSheetController,
                 private barcodeScanner: BarcodeScanner,
                 private router: Router,
                 private lddRepository: DistributionLddRepository,
-                private toastController: ToastController) {
+                private toastController: ToastController,
+                private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -65,5 +71,9 @@ export class MenuPrincipalComponent implements OnInit {
               }]
             });
             await actionSheet.present();
+    }
+
+    appelWs(){
+        this.http.get('https://oliweb-ec245.firebaseio.com/annonces.json').subscribe(annonces => this.annonces = annonces);
     }
 }

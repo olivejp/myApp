@@ -29,9 +29,10 @@ import {IndexeddbService} from './technical/orm/service/indexeddb.service';
 import {GeolocalService} from './services/geolocal.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { HttpClientModule } from '@angular/common/http';
+import { AnnonceComponent } from './annonce/annonce.component';
 
 @NgModule({
-    declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent],
+    declarations: [AppComponent, ScannerComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent, AnnonceComponent],
     entryComponents: [],
     imports: [
         BrowserModule,
