@@ -9,7 +9,7 @@ jobs:
           name: "Deploy to store"
           command: |
             chmod +x .circleci/upload-playstore.sh
-            sudo .circleci/upload-playstore.sh $GOOGLE_KEY ./jp-mobile.apk 1 internal false
+            .circleci/upload-playstore.sh $GOOGLE_KEY ./jp-mobile.apk 1 internal false
   build: 
     docker: 
       - image: circleci/android:api-29-node
