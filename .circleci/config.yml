@@ -8,9 +8,9 @@ jobs:
       - run:
           name: "Deploy to store"
           command: |
-            apt-get update
-            apt-get install jq
-            apt-get install dump
+            apt-get -y update
+            apt-get -y install jq
+            apt-get -y install dump
             echo ${GOOGLE_KEY}
             chmod +x .circleci/upload-playstore.sh
             .circleci/upload-playstore.sh ./jp-mobile.apk 1 internal false
