@@ -9,7 +9,7 @@ jobs:
           name: "Deploy to store"
           command: |
             chmod +x .circleci/upload-playstore.sh
-            .circleci/upload-playstore.sh jp-mobile-1.apk 2 internal false
+            .circleci/upload-playstore.sh /tmp/apk/jp-mobile-1.apk 2 internal false
   build: 
     docker: 
       - image: circleci/android:api-29-node
