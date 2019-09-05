@@ -5,17 +5,16 @@ function pause(){
 }
 
 # Name variables
-PLAYSTORE_KEY=$1
-APK_PATH=$2
-BUILD_NO=$3
-PLAYSTORE_TRACK=$4
-DRAFT=$5
+PLAYSTORE_KEY=${GOOGLE_KEY}
+APK_PATH=$1
+BUILD_NO=$2
+PLAYSTORE_TRACK=$3
+DRAFT=$4
 
 echo $1
 echo $2
 echo $3
 echo $4
-echo $5
 
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
