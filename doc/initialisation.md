@@ -216,3 +216,6 @@ Pour un attribut particulier
 ````shell script
 aapt dump badging nom_apk.apk | grep 'pack'
 ````
+
+Script pour déployer
+https://www.brightec.co.uk/ideas/google-playstore-and-automated-deployment

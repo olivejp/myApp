@@ -52,11 +52,6 @@ jobs:
           command: |
             ionic cordova platform add android --noresources
             ionic config set -g telemetry true
-      - run:
-          name: "Increment version"
-          command: |
-            export NEW_VERSION=$(gradle -q incrementMinorVersion | tail -n 1)
-            echo $NEW_VERSION
       - run: 
           name: "Generate apk"
           command: |
