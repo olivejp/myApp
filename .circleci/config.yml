@@ -13,8 +13,10 @@ jobs:
             sudo apt-get install openssl
             sudo apt-get install curl
             sudo apt-get install sed
+            sudo apt-get install wget
             chmod +x .circleci/upload-playstore.sh
-            .circleci/upload-playstore.sh jp-mobile-.apk 2 internal false
+            wget  "https://$CIRCLE_PREVIOUS_BUILD_NUM-199160063-gh.circle-artifacts.com/0/apks/jp-mobile.apk"
+            .circleci/upload-playstore.sh jp-mobile.apk 2 internal false
   build: 
     docker: 
       - image: circleci/android:api-29-node
@@ -68,11 +70,11 @@ jobs:
       - run:
           name: "ZipAlign the APK"
           command: |
-            $ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 /tmp/apk/app-release-unsigned.apk jp-mobile-$NEW_VERSION.apk || true
+            $ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 /tmp/apk/app-release-unsigned.apk jp-mobile.apk || true
       - run:
           name: "Copy signed APK to directory"
           command: |            
-            cp -r jp-mobile-$NEW_VERSION.apk /tmp/apk
+            cp -r jp-mobile.apk /tmp/apk
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
@@ -81,9 +83,9 @@ workflows:
   version: 2
   only_deploy: 
     jobs:
-#      - build:
-#          context: env
+      - build:
+          context: env
       - deploy:
-#          requires:
-#            - build
+          requires:
+            - build
           context: env
