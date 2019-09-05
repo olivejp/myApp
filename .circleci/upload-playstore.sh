@@ -48,9 +48,9 @@ AUTH_TOKEN=$(echo $PLAYSTORE_KEY | jq -r '.private_key')
 AUTH_ISS=$(echo $PLAYSTORE_KEY | jq -r '.client_email')
 AUTH_AUD=$(echo $PLAYSTORE_KEY | jq -r '.token_uri')
 
-echo $AUTH_TOKEN
-echo $AUTH_ISS
-echo $AUTH_AUD
+echo 'AUTH_TOKEN = ' $AUTH_TOKEN
+echo 'AUTH_ISS = ' $AUTH_ISS
+echo 'AUTH_AUD = ' $AUTH_AUD
 
 if [ -z "$AUTH_TOKEN" ] || [ -z "$AUTH_ISS" ] || [ -z "$AUTH_AUD" ]; then
   echo "PLAYSTORE_SERVICE_KEY not as expected. Exiting."
