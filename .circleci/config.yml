@@ -2,12 +2,15 @@ version: 2
 jobs: 
   deploy:
     docker: 
-      - image: stedolan/jq
+      - image: alpine
     steps:
       - checkout
       - run:
           name: "Deploy to store"
           command: |
+            sudo apt-get jq
+            sudo apt-get update
+            sudo apt-get install dump
             echo ${GOOGLE_KEY}
             chmod +x .circleci/upload-playstore.sh
             .circleci/upload-playstore.sh ./jp-mobile.apk 1 internal false
