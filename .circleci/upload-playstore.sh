@@ -19,27 +19,27 @@ echo $4
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
   echo "PLAYSTORE_KEY variable not supplied. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 if [ -z "$APK_PATH" ]; then
   echo "APK_PATH variable not supplied. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 if [ -z "$BUILD_NO" ]; then
   echo "BUILD_NO variable not supplied. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 if [ -z "$PLAYSTORE_TRACK" ]; then
   echo "PLAYSTORE_TRACK variable not supplied. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 if [ -z "$DRAFT" ]; then
   echo "DRAFT variable not supplied. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
@@ -53,7 +53,7 @@ echo 'AUTH_AUD = ' $AUTH_AUD
 
 if [ -z "$AUTH_TOKEN" ] || [ -z "$AUTH_ISS" ] || [ -z "$AUTH_AUD" ]; then
   echo "PLAYSTORE_SERVICE_KEY not as expected. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
@@ -69,12 +69,12 @@ VERSION_CODE=$($AAPT dump badging $APK_PATH | grep versionCode | awk '{print $3}
 
 if [ -z "$PACKAGE_NAME" ]; then
   echo "PACKAGE_NAME not determined from apk. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 if [ -z "$VERSION_CODE" ]; then
   echo "VERSION_CODE not determined from apk. Exiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
@@ -111,7 +111,7 @@ HTTP_STATUS_TOKEN=$(echo $HTTP_RESPONSE_TOKEN | tr -d '\n' | sed -e 's/.*HTTPSTA
 
 if [ $HTTP_STATUS_TOKEN != 200 ]; then
   echo -e "Create access token failed.\nStatus: $HTTP_STATUS_TOKEN\nBody: $HTTP_BODY_TOKEN\nExiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 ACCESS_TOKEN=$(echo $HTTP_BODY_TOKEN | jq -r '.access_token')
@@ -141,7 +141,7 @@ HTTP_STATUS_CREATE_EDIT=$(echo $HTTP_RESPONSE_CREATE_EDIT | tr -d '\n' | sed -e 
 
 if [ $HTTP_STATUS_CREATE_EDIT != 200 ]; then
   echo -e "Create edit failed.\nStatus: $HTTP_STATUS_CREATE_EDIT\nBody: $HTTP_BODY_CREATE_EDIT\nExiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
@@ -162,7 +162,7 @@ HTTP_STATUS_UPLOAD_APK=$(echo $HTTP_RESPONSE_UPLOAD_APK | tr -d '\n' | sed -e 's
 
 if [ $HTTP_STATUS_UPLOAD_APK != 200 ]; then
   echo -e "Upload apk failed\nStatus: $HTTP_STATUS_UPLOAD_APK\nBody: $HTTP_BODY_UPLOAD_APK\nExiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
@@ -197,7 +197,7 @@ HTTP_STATUS_ASSIGN_TRACK=$(echo $HTTP_RESPONSE_ASSIGN_TRACK | tr -d '\n' | sed -
 
 if [ $HTTP_STATUS_ASSIGN_TRACK != 200 ]; then
   echo -e "Assign track failed\nStatus: $HTTP_STATUS_ASSIGN_TRACK\nBody: $HTTP_BODY_ASSIGN_TRACK\nExiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
@@ -213,7 +213,7 @@ HTTP_STATUS_COMMIT=$(echo $HTTP_RESPONSE_COMMIT | tr -d '\n' | sed -e 's/.*HTTPS
 
 if [ $HTTP_STATUS_COMMIT != 200 ]; then
   echo -e "Commit edit failed\nStatus: $HTTP_STATUS_COMMIT\nBody: $HTTP_BODY_COMMIT\nExiting."
-  pause 'Press Enter'
+  
   exit 1
 fi
 
