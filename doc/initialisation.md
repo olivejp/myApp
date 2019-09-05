@@ -203,3 +203,16 @@ Pour le signer je fais le code suivant :
 
 Je dois ensuite faire le zipalign
 ====>C:\Users\ecole1\AppData\Local\Android\Sdk\build-tools\29.0.2\zipalign -v 4 app-release-unsigned.apk jp-mobile.apk
+
+Pour connaitre le contenu d'une APK et voir le package utilisé ainsi que le numéro de version :
+*** aapt est fourni dans ANDROID_HOME/sdk/build-tools/**.*.*/aapt
+
+````shell script
+aapt dump badging nom_apk.apk
+````
+
+Pour un attribut particulier
+
+````shell script
+aapt dump badging nom_apk.apk | grep 'pack'
+````

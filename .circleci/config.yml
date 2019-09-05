@@ -2,12 +2,16 @@ version: 2
 jobs: 
   deploy:
     docker: 
-      - image: retengr/deploy-play:1.0.0
+      - image: circleci/android:api-29-node
     steps:
       - checkout
       - run:
           name: "Deploy to store"
           command: |
+            apt-get install jq
+            apt-get install openssl
+            apt-get install curl
+            apt-get install sed
             chmod +x .circleci/upload-playstore.sh
             .circleci/upload-playstore.sh /tmp/apk/jp-mobile-1.apk 2 internal false
   build: 
@@ -19,10 +23,11 @@ jobs:
     steps: 
       - checkout
       - run:
-          name: "Delete artifactory"
+          name: "Delete useless artifacts"
           command: |
-            echo 'Suppression de l APK'
+            echo 'Suppression des APK'
             unlink jp-mobile.apk || true
+            unlink app-release-unsigned.apk || true
       - run:
           name: "Install gradle"
           command: |
@@ -61,7 +66,7 @@ jobs:
       - run:
           name: "ZipAlign the APK"
           command: |
-            ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile-1.apk || true
+            ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 /tmp/apk/app-release-unsigned.apk jp-mobile-1.apk || true
       - run:
           name: "Copy signed APK to directory"
           command: |            
