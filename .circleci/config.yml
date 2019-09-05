@@ -4,6 +4,7 @@ jobs:
     docker: 
       - image: gradle
     steps:
+      - checkout
       - run:
           name: "Deploy to store"
           command: |
