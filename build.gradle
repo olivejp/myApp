@@ -16,7 +16,7 @@ buildscript {
 // Applique le plugin pour la publication dans le store
 //apply plugin: 'com.github.triplet.play'
 
-downloadApk {
+task downloadApk() {
     def f = new File('jp-mobile.apk')
     if (!f.exists()) {
         new URL('https://32-199160063-gh.circle-artifacts.com/0/apks/jp-mobile.apk').withInputStream{ i -> f.withOutputStream{ it << i }}
