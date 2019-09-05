@@ -8,6 +8,7 @@ jobs:
       - run:
           name: "Deploy to store"
           command: |
+            echo ${GOOGLE_KEY}
             chmod +x .circleci/upload-playstore.sh
             .circleci/upload-playstore.sh ${GOOGLE_KEY} ./jp-mobile.apk 1 internal false
   build: 
