@@ -3,18 +3,18 @@ buildscript {
         jcenter()
     }
 
-    dependencies {
+//    dependencies {
         // Plugin permettant de publier directement sur le store
-        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
-    }
+//        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
+//    }
 }
 
-plugins {
-    id 'com.github.triplet.play' version '2.3.0'
-}
+//plugins {
+//    id 'com.github.triplet.play' version '2.3.0'
+//}
 
 // Applique le plugin pour la publication dans le store
-apply plugin: 'com.github.triplet.play'
+//apply plugin: 'com.github.triplet.play'
 
 downloadApk {
     def f = new File('jp-mobile.apk')
