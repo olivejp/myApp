@@ -14,7 +14,7 @@ import { Annonce } from '../domain/annonce.entity';
 })
 export class MenuPrincipalComponent implements OnInit {
 
-    private annonces: any;
+    annonces: any;
 
     constructor(private actionSheetController: ActionSheetController,
         private barcodeScanner: BarcodeScanner,
