@@ -18,7 +18,7 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps: 
       - checkout
-      - run: 
+      - run:
           name: "Install gradle"
           command: |
             wget https://services.gradle.org/distributions/gradle-5.4.1-bin.zip -P /tmp
@@ -26,10 +26,6 @@ jobs:
             echo 'export GRADLE_HOME=/opt/gradle/gradle-5.4.1' >> $BASH_ENV
             echo 'export PATH=$PATH:/opt/gradle/gradle-5.4.1/bin' >> $BASH_ENV
             source $BASH_ENV
-      - run:
-          name: "Increment version"
-          command: |
-            gradle incrementMinorVersion
       - run: 
           name: "Install ionic and cordova"
           command: |
@@ -43,6 +39,10 @@ jobs:
           command: |
             ionic cordova platform add android --noresources
             ionic config set -g telemetry true
+      - run:
+          name: "Increment version"
+          command: |
+            export NEW_VERSION=$(gradle -q incrementMinorVersion | tail -n 1)
       - run: 
           name: "Generate apk"
           command: |
@@ -52,15 +52,15 @@ jobs:
       - run:
           name: "Sign the APK"
           command: |
-            yes password | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk sido-mobile-keystore || true
+            yes ${KEYSTORE_PASSWORD} | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk ${KEYSTORE_ALIAS} || true
       - run:
           name: "ZipAlign the APK"
           command: |
-            ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile.apk || true
+            ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile-${NEW_VERSION}.apk || true
       - run:
           name: "Copy signed APK to directory"
           command: |            
-            cp -r jp-mobile.apk /tmp/apk
+            cp -r jp-mobile-${NEW_VERSION}.apk /tmp/apk
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
@@ -71,6 +71,6 @@ workflows:
     jobs:
       - build
       - deploy:
-          context: env
           requires:
             - build
+          context: env

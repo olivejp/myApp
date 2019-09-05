@@ -19,6 +19,6 @@ export class NetworkService {
     }
 
     subscribeOnChange(): Observable<any> {
-        return this.network.onChange();
+        return this.network.onchange();
     }
 }

@@ -21,5 +21,5 @@ task incrementMinorVersion() {
     def writer = new XmlNodePrinter(new PrintWriter(new FileWriter(srcFile)))
     writer.preserveWhitespace = true
     writer.print(widget)
-    println 'Version has been updated to ' + newVersion
+    println newVersion
 }
