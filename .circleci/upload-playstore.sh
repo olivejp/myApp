@@ -11,6 +11,12 @@ BUILD_NO=$3
 PLAYSTORE_TRACK=$4
 DRAFT=$5
 
+echo $1
+echo $2
+echo $3
+echo $4
+echo $5
+
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
   echo "PLAYSTORE_KEY variable not supplied. Exiting."
