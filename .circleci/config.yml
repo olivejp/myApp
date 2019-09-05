@@ -1,5 +1,13 @@
 version: 2
 jobs: 
+  deploy:
+    docker: 
+      - image: gradle
+    steps:
+      - run:
+          name: "Deploy to store"
+          command: |
+            gradle publishApkRelease
   build: 
     docker: 
       - image: circleci/android:api-29-node
@@ -48,10 +56,6 @@ jobs:
           name: "ZipAlign the APK"
           command: |
             ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile.apk || true
-      - run:
-          name: "Deploy to store"
-          command: |
-            gradlew publishApkRelease
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
@@ -61,3 +65,4 @@ workflows:
   build_and_deploy: 
     jobs: 
       - build
+      - deploy
