@@ -7,6 +7,8 @@ jobs:
       - run:
           name: "Deploy to store"
           command: |
+            gradle install
+            gradle build 
             gradle publishApkRelease
   build: 
     docker: 
