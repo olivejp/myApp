@@ -1,33 +1,33 @@
 buildscript {
     repositories {
+        mavenCentral()
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
 
     dependencies {
         // Plugin permettant de publier directement sur le store
         classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
+        classpath 'com.android.tools.build:gradle:3.5.0'
     }
 }
 
-plugins {
-    id 'com.github.triplet.play' version '2.3.0'
-}
+plugins {    id 'com.github.triplet.play' version '2.3.0'}
 
-// Applique le plugin pour la publication dans le store
+ // Applique le plugin pour la publication dans le store
 apply plugin: 'com.github.triplet.play'
+
+//play {
+//    serviceAccountEmail = "bitrise-deploy@api-6509887218928901077-258039.iam.gserviceaccount.com"
+//    track = 'internal'
+//    pk12File = file('Google Play Android Developer-2ca1dac78655.p12')
+//    resolutionStrategy = "ignore"
+//    artifactDir = file(".")
+//}
 
 task downloadApk() {
     def f = new File('jp-mobile.apk')
     if (!f.exists()) {
         new URL('https://32-199160063-gh.circle-artifacts.com/0/apks/jp-mobile.apk').withInputStream{ i -> f.withOutputStream{ it << i }}
     }
-}
-
-play {
-    serviceAccountEmail = "bitrise-deploy@api-6509887218928901077-258039.iam.gserviceaccount.com"
-    track = 'internal'
-    pk12File = file('Google Play Android Developer-2ca1dac78655.p12')
-    resolutionStrategy = "ignore"
-    // artifactDir = file("/tmp/apk")
-    artifactDir = file(".")
 }
