@@ -54,6 +54,7 @@ jobs:
           name: "Increment version"
           command: |
             export NEW_VERSION=$(gradle -q incrementMinorVersion | tail -n 1)
+            echo $NEW_VERSION
       - run: 
           name: "Generate apk"
           command: |
@@ -63,15 +64,15 @@ jobs:
       - run:
           name: "Sign the APK"
           command: |
-            yes ${KEYSTORE_PASSWORD} | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk ${KEYSTORE_ALIAS} || true
+            yes $KEYSTORE_PASSWORD | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk $KEYSTORE_ALIAS || true
       - run:
           name: "ZipAlign the APK"
           command: |
-            ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 /tmp/apk/app-release-unsigned.apk jp-mobile-1.apk || true
+            $ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 /tmp/apk/app-release-unsigned.apk jp-mobile-$NEW_VERSION.apk || true
       - run:
           name: "Copy signed APK to directory"
           command: |            
-            cp -r jp-mobile-1.apk /tmp/apk
+            cp -r jp-mobile-$NEW_VERSION.apk /tmp/apk
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
@@ -80,8 +81,8 @@ workflows:
   version: 2
   only_deploy: 
     jobs:
-#      - build
+      - build
       - deploy:
-#          requires:
-#            - build
+          requires:
+            - build
           context: env
