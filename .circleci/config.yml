@@ -9,6 +9,7 @@ jobs:
           name: "Deploy to store"
           command: |
             gradle downloadApk --stacktrace
+            gradle build
   build: 
     docker: 
       - image: circleci/android:api-29-node
