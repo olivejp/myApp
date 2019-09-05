@@ -1,33 +1,25 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-        maven { url 'https://maven.google.com' }
+task incrementMinorVersion() {
+    def srcFile = file('./config.xml')
+    def widget = new XmlParser().parse(srcFile)
+    def versionSplite = widget.@version.split('..')
+    def length = versionSplite.length
+    def lastElement = Integer.valueOf(versionSplite[length-1]) + 1
+    def newVersion
+    for (def i = 0; i <length; i++) {
+        def value = (!versionSplite[i]) ? '0' : versionSplite[i]
+        if (i > 0) {
+            if (i == length - 1) {
+                newVersion = newVersion + '.' + lastElement
+            } else {
+                newVersion = newVersion + '.' + value
+            }
+        } else {
+            newVersion = value
+        }
     }
-
-    dependencies {
-        // Plugin permettant de publier directement sur le store
-        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
-        classpath 'com.android.tools.build:gradle:3.5.0'
-    }
-}
-
-plugins {    id 'com.github.triplet.play' version '2.3.0'}
-
- // Applique le plugin pour la publication dans le store
-apply plugin: 'com.github.triplet.play'
-
-//play {
-//    serviceAccountEmail = "bitrise-deploy@api-6509887218928901077-258039.iam.gserviceaccount.com"
-//    track = 'internal'
-//    pk12File = file('Google Play Android Developer-2ca1dac78655.p12')
-//    resolutionStrategy = "ignore"
-//    artifactDir = file(".")
-//}
-
-task downloadApk() {
-    def f = new File('jp-mobile.apk')
-    if (!f.exists()) {
-        new URL('https://32-199160063-gh.circle-artifacts.com/0/apks/jp-mobile.apk').withInputStream{ i -> f.withOutputStream{ it << i }}
-    }
+    widget.@version = newVersion
+    def writer = new XmlNodePrinter(new PrintWriter(new FileWriter(srcFile)))
+    writer.preserveWhitespace = true
+    writer.print(widget)
+    println 'Version has been updated to ' + newVersion
 }
