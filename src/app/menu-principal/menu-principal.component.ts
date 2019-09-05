@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
-import {Router} from '@angular/router';
-import {ToastController} from '@ionic/angular';
-import {DistributionLddRepository} from '../services/distribution.ldd.repository';
+import { Component, OnInit } from '@angular/core';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { DistributionLddRepository } from '../services/distribution.ldd.repository';
 import { ActionSheetController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Annonce } from '../domain/annonce.entity';
@@ -17,11 +17,11 @@ export class MenuPrincipalComponent implements OnInit {
     private annonces: any;
 
     constructor(private actionSheetController: ActionSheetController,
-                private barcodeScanner: BarcodeScanner,
-                private router: Router,
-                private lddRepository: DistributionLddRepository,
-                private toastController: ToastController,
-                private http: HttpClient) {
+        private barcodeScanner: BarcodeScanner,
+        private router: Router,
+        private lddRepository: DistributionLddRepository,
+        private toastController: ToastController,
+        private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class MenuPrincipalComponent implements OnInit {
     lancerCapture() {
         this.barcodeScanner.scan().then(barcodeData => {
             console.log('Barcode data', barcodeData);
-            this.router.navigate(['/signature', {codeBarre: barcodeData.text}]);
+            this.router.navigate(['/signature', { codeBarre: barcodeData.text }]);
         }).catch(err => {
             console.log('Error', err);
         });
@@ -45,35 +45,40 @@ export class MenuPrincipalComponent implements OnInit {
 
     async playActionSheet() {
         const actionSheet = await this.actionSheetController.create({
-              header: 'Albums',
-              buttons: [{
+            header: 'Albums',
+            buttons: [{
                 text: 'Delete',
                 role: 'destructive',
                 icon: 'trash',
                 handler: () => this.playToast('Delete')
-                }, {
+            }, {
                 text: 'Share',
                 icon: 'share',
                 handler: () => this.playToast('Share')
-              }, {
+            }, {
                 text: 'Play (open modal)',
                 icon: 'arrow-dropright-circle',
                 handler: () => this.playToast('Play')
-              }, {
+            }, {
                 text: 'Favorite',
                 icon: 'heart',
                 handler: () => this.playToast('Favorite')
-              }, {
+            }, {
                 text: 'Cancel',
                 icon: 'close',
                 role: 'cancel',
                 handler: () => this.playToast('Cancel')
-              }]
-            });
-            await actionSheet.present();
+            }]
+        });
+        await actionSheet.present();
     }
 
-    appelWs(){
-        this.http.get('https://oliweb-ec245.firebaseio.com/annonces.json').subscribe(annonces => this.annonces = annonces);
+    appelWs() {
+        this.http.get('https://oliweb-ec245.firebaseio.com/annonces.json').subscribe(annonces => {
+            this.annonces = Object.keys(annonces).map(function (key) {
+                return annonces[key];
+            });
+            console.log(this.annonces);
+        });
     }
 }

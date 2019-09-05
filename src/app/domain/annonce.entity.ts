@@ -23,4 +23,5 @@ export class Annonce {
     titre: string;
     uuid: string;
     utilisateur: User;
+    
 }
