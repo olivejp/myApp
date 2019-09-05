@@ -58,6 +58,10 @@ jobs:
           name: "ZipAlign the APK"
           command: |
             ${ANDROID_HOME}/build-tools/29.0.1/zipalign -v 4 app-release-unsigned.apk jp-mobile.apk || true
+      - run:
+          name: "Copy signed APK to directory"
+          command: |            
+            cp -r jp-mobile.apk /tmp/apk
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
