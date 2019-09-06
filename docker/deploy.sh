@@ -10,14 +10,14 @@ KEYSTORE_PASSWORD=$6
 JKS_FILE=$7
 KEYSTORE_ALIAS=$8
 
-echo $1
-echo $2
-echo $3
-echo $4
-echo $5
-echo $6
-echo $7
-echo $8
+echo $PLAYSTORE_KEY
+echo $APK_PATH
+echo $BUILD_NO
+echo $PLAYSTORE_TRACK
+echo $DRAFT
+echo $KEYSTORE_PASSWORD
+echo $JKS_FILE
+echo $KEYSTORE_ALIAS
 
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
