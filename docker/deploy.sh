@@ -19,12 +19,6 @@ echo $6
 echo $7
 echo $8
 
-# Signature de l'application
-yes $KEYSTORE_PASSWORD | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $JKS_FILE $APK_PATH $KEYSTORE_ALIAS || true
-
-# ZIPAlign de l'APK
-$ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 $APK_PATH $APK_PATH || true
-
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
   echo "PLAYSTORE_KEY variable not supplied. Exiting."
@@ -59,6 +53,12 @@ if [ -z "$KEYSTORE_ALIAS" ]; then
   exit 1
 fi
 
+# Signature de l'application
+yes $KEYSTORE_PASSWORD | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $JKS_FILE $APK_PATH $KEYSTORE_ALIAS || true
+
+# ZIPAlign de l'APK
+$ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 $APK_PATH my_apk.apk || true
+
 AUTH_TOKEN=$(echo $PLAYSTORE_KEY | jq -r '.private_key')
 AUTH_ISS=$(echo $PLAYSTORE_KEY | jq -r '.client_email')
 AUTH_AUD=$(echo $PLAYSTORE_KEY | jq -r '.token_uri')
@@ -79,8 +79,8 @@ else
 fi
 
 AAPT=$(find $ANDROID_HOME -name "aapt" | sort -r | head -1)
-PACKAGE_NAME=$($AAPT dump badging $APK_PATH | grep package | awk '{print $2}' | sed s/name=//g | sed s/\'//g)
-VERSION_CODE=$($AAPT dump badging $APK_PATH | grep versionCode | awk '{print $3}' | sed s/versionCode=//g | sed s/\'//g)
+PACKAGE_NAME=$($AAPT dump badging my_apk.apk | grep package | awk '{print $2}' | sed s/name=//g | sed s/\'//g)
+VERSION_CODE=$($AAPT dump badging my_apk.apk | grep versionCode | awk '{print $3}' | sed s/versionCode=//g | sed s/\'//g)
 
 if [ -z "$PACKAGE_NAME" ]; then
   echo "PACKAGE_NAME not determined from apk. Exiting."
@@ -91,7 +91,7 @@ if [ -z "$VERSION_CODE" ]; then
   exit 1
 fi
 
-echo "APK_PATH: $APK_PATH\nBUILD_NO: $BUILD_NO\nPACKAGE_NAME: $PACKAGE_NAME\nVERSION_CODE: $VERSION_CODE\nPLAYSTORE_TRACK: $PLAYSTORE_TRACK\nSTATUS: $STATUS"
+echo "APK_PATH: my_apk.apk\nBUILD_NO: $BUILD_NO\nPACKAGE_NAME: $PACKAGE_NAME\nVERSION_CODE: $VERSION_CODE\nPLAYSTORE_TRACK: $PLAYSTORE_TRACK\nSTATUS: $STATUS"
 
 # Get access token
 echo "Getting access token..."
@@ -167,7 +167,7 @@ HTTP_RESPONSE_UPLOAD_APK=$(curl --write-out "HTTPSTATUS:%{http_code}" \
   --header "Content-Type: application/vnd.android.package-archive" \
   --progress-bar \
   --request POST \
-  --upload-file $APK_PATH \
+  --upload-file my_apk.apk \
   https://www.googleapis.com/upload/androidpublisher/v3/applications/$PACKAGE_NAME/edits/$EDIT_ID/apks?uploadType=media)
 HTTP_BODY_UPLOAD_APK=$(echo $HTTP_RESPONSE_UPLOAD_APK | sed -e 's/HTTPSTATUS\:.*//g')
 HTTP_STATUS_UPLOAD_APK=$(echo $HTTP_RESPONSE_UPLOAD_APK | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
