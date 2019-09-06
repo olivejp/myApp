@@ -8,4 +8,4 @@ RUN sudo apt-get install sed
 RUN sudo apt-get install wget
 
 # Copy the upload-playstore
-COPY deploy.sh .
+COPY deploy.sh /home/circleci/deploy.sh
