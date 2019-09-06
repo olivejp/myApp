@@ -9,7 +9,7 @@ jobs:
           name: "Deploy to store"
           command: |
             wget "https://$CIRCLE_PREVIOUS_BUILD_NUM-199160063-gh.circle-artifacts.com/0/apks/app-release-unsigned.apk"
-            sh deploy.sh $GOOGLE_KEY app-release-unsigned.apk 2 internal false $KEYSTORE_PASSWORD sido-mobile-keystore.jks $KEYSTORE_ALIAS
+            sudo deploy.sh $GOOGLE_KEY app-release-unsigned.apk 2 internal false $KEYSTORE_PASSWORD sido-mobile-keystore.jks $KEYSTORE_ALIAS
   build: 
     docker: 
       - image: circleci/android:api-29-node
@@ -45,18 +45,6 @@ jobs:
             ionic cordova build android --release --prod
             mkdir -p /tmp/apk
             cp -r platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk /tmp/apk
-      # - run:
-      #     name: "Sign the APK"
-      #     command: |
-      #       yes $KEYSTORE_PASSWORD | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore sido-mobile-keystore.jks /tmp/apk/app-release-unsigned.apk $KEYSTORE_ALIAS || true
-      # - run:
-      #     name: "ZipAlign the APK"
-      #     command: |
-      #       $ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 /tmp/apk/app-release-unsigned.apk jp-mobile.apk || true
-      # - run:
-      #     name: "Copy signed APK to directory"
-      #     command: |            
-      #       cp -r jp-mobile.apk /tmp/apk
       - store_artifacts: 
           path: /tmp/apk
           destination: apks
