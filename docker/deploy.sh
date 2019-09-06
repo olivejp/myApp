@@ -6,12 +6,24 @@ APK_PATH=$2
 BUILD_NO=$3
 PLAYSTORE_TRACK=$4
 DRAFT=$5
+KEYSTORE_PASSWORD=$6
+JKS_FILE=$7
+KEYSTORE_ALIAS=$8
 
 echo $1
 echo $2
 echo $3
 echo $4
 echo $5
+echo $6
+echo $7
+echo $8
+
+# Signature de l'application
+yes $KEYSTORE_PASSWORD | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $JKS_FILE $APK_PATH $KEYSTORE_ALIAS || true
+
+# ZIPAlign de l'APK
+$ANDROID_HOME/build-tools/29.0.1/zipalign -v 4 $APK_PATH $APK_PATH || true
 
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
@@ -32,6 +44,18 @@ if [ -z "$PLAYSTORE_TRACK" ]; then
 fi
 if [ -z "$DRAFT" ]; then
   echo "DRAFT variable not supplied. Exiting."
+  exit 1
+fi
+if [ -z "$KEYSTORE_PASSWORD" ]; then
+  echo "KEYSTORE_PASSWORD variable not supplied. Exiting."
+  exit 1
+fi
+if [ -z "$JKS_FILE" ]; then
+  echo "JKS_FILE variable not supplied. Exiting."
+  exit 1
+fi
+if [ -z "$KEYSTORE_ALIAS" ]; then
+  echo "KEYSTORE_ALIAS variable not supplied. Exiting."
   exit 1
 fi
 
