@@ -53,9 +53,9 @@ workflows:
   version: 2
   only_deploy: 
     jobs:
-      - build:
-          context: env
+      # - build:
+      #     context: env
       - deploy:
-          requires:
-            - build
+          # requires:
+          #   - build
           context: env
