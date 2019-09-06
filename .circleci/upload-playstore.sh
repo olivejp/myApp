@@ -1,9 +1,5 @@
 #!/bin/bash
 
-function pause(){
-   read -p "$*"
-}
-
 # Name variables
 PLAYSTORE_KEY=${GOOGLE_KEY}
 APK_PATH=$1
@@ -19,27 +15,22 @@ echo $4
 # Safety checks
 if [ -z "$PLAYSTORE_KEY" ]; then
   echo "PLAYSTORE_KEY variable not supplied. Exiting."
-  
   exit 1
 fi
 if [ -z "$APK_PATH" ]; then
   echo "APK_PATH variable not supplied. Exiting."
-  
   exit 1
 fi
 if [ -z "$BUILD_NO" ]; then
   echo "BUILD_NO variable not supplied. Exiting."
-  
   exit 1
 fi
 if [ -z "$PLAYSTORE_TRACK" ]; then
   echo "PLAYSTORE_TRACK variable not supplied. Exiting."
-  
   exit 1
 fi
 if [ -z "$DRAFT" ]; then
   echo "DRAFT variable not supplied. Exiting."
-  
   exit 1
 fi
 
