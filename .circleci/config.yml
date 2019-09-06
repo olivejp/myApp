@@ -2,7 +2,7 @@ version: 2
 jobs: 
   deploy:
     docker: 
-      - image: olivejp/android-deploy:1.0.5
+      - image: olivejp/android-deploy:1.0.6
     steps:
       - checkout
       - run:
@@ -10,7 +10,8 @@ jobs:
           command: |
             # wget "https://$CIRCLE_PREVIOUS_BUILD_NUM-199160063-gh.circle-artifacts.com/0/apks/app-release-unsigned.apk"
             wget "https://112-199160063-gh.circle-artifacts.com/0/apks/app-release-unsigned.apk"
-            sh home/circleci/deploy.sh ${GOOGLE_KEY} app-release-unsigned.apk 2 internal false ${KEYSTORE_PASSWORD} sido-mobile-keystore.jks ${KEYSTORE_ALIAS}
+            cd /home/circleci/
+            sh deploy.sh ${GOOGLE_KEY} app-release-unsigned.apk 2 internal false ${KEYSTORE_PASSWORD} sido-mobile-keystore.jks ${KEYSTORE_ALIAS}
   build: 
     docker: 
       - image: circleci/android:api-29-node
