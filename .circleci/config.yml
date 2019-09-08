@@ -6,12 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "WGET the last APK build"
+          name: "WGET the last APK build and Deploy to store"
           command: |
             wget "https://$CIRCLE_PREVIOUS_BUILD_NUM-199160063-gh.circle-artifacts.com/0/apks/app-release-unsigned.apk"
-      - run:
-          name: "Deploy to store"
-          command: |
             bash /home/circleci/deploy.sh "${GOOGLE_KEY}" app-release-unsigned.apk 2 internal false sido-mobile-keystore.jks ${KEYSTORE_PASSWORD} ${KEYSTORE_ALIAS}
   build: 
     docker: 
