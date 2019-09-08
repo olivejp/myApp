@@ -17,15 +17,13 @@ import {ScannerComponent} from './scanner/scanner.component';
 import {SignatureComponent} from './signature/signature.component';
 import {MenuPrincipalComponent} from './menu-principal/menu-principal.component';
 import {SQLite} from '@ionic-native/sqlite/ngx';
-import {DatabaseService} from './services/core/database.service';
 import {FileImageService} from './services/core/file-image.service';
 import {DistributionLddRepository} from './services/distribution.ldd.repository';
 import {FormsModule} from '@angular/forms';
-import {RepositoryService} from './technical/orm/service/repository.service';
 import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
 import {IonicStorageModule} from '@ionic/storage';
 import {INDEXEDDB_KEY, INDEXEDDB_NAME} from './constant';
-import {IndexeddbService} from './technical/orm/service/indexeddb.service';
+import {IndexeddbService} from './technical/service/indexeddb.service';
 import {GeolocalService} from './services/geolocal.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { HttpClientModule } from '@angular/common/http';
@@ -55,12 +53,10 @@ import { AnnonceComponent } from './annonce/annonce.component';
         Network,
         SQLite,
         File,
-        DatabaseService,
         FileImageService,
         IndexeddbService,
         ToastController,
         DistributionLddRepository,
-        RepositoryService,
         GeolocalService,
         Geolocation,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}

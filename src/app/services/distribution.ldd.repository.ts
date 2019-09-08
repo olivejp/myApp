@@ -1,22 +1,18 @@
 import {Injectable} from '@angular/core';
-import {DatabaseService} from './core/database.service';
 import {DistributionLddEntity, TypeDistribution} from '../domain/distribution-ldd.entity';
-import {Repository} from '../technical/orm/repository';
-import {RepositoryService} from '../technical/orm/service/repository.service';
-import {IndexeddbService} from '../technical/orm/service/indexeddb.service';
-import {HttpClient} from '@angular/common/http';
+import {AbstractRepository} from '../technical/orm/repository';
+import {IndexeddbService} from '../technical/service/indexeddb.service';
+import {DatabaseService} from '../technical/orm/database.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DistributionLddRepository extends Repository<DistributionLddEntity, number> {
+export class DistributionLddRepository extends AbstractRepository<DistributionLddEntity, number> {
 
     private INDEXEDDB_KEY_LDD = 'LDD';
 
     constructor(private databaseService: DatabaseService,
-                private repositoryService: RepositoryService,
-                private storage: IndexeddbService,
-                private http: HttpClient) {
+                private storage: IndexeddbService) {
         super(databaseService, DistributionLddEntity.prototype.constructor);
     }
 

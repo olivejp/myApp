@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {INDEXEDDB_KEY} from '../../../constant';
+import {INDEXEDDB_KEY} from '../../constant';
 
 @Injectable({
     providedIn: 'root'

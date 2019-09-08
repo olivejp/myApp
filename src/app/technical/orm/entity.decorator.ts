@@ -17,6 +17,10 @@ function getSqlCreate(columns: Map<string, ColumnDefinition>, tableName: string)
     return sqlCreate;
 }
 
+/**
+ * Function used as an Decorator on class.
+ * @param tableName: string, name of the table that we want to create.
+ */
 export function Entity(tableName: string): any {
     return (target) => {
 

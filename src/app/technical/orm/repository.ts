@@ -1,12 +1,60 @@
-import {DatabaseService} from '../../services/core/database.service';
+import {DatabaseService} from './database.service';
 
-export abstract class Repository<T, I> {
+export abstract class AbstractRepository<T, I> {
+
     private databaseServiceSuper: DatabaseService;
-    private readonly entityConstructor;
+    private entityConstructor: any;
 
-    protected constructor(databaseService: DatabaseService, entityConstructor: any) {
-        this.databaseServiceSuper = databaseService;
+    protected constructor(databaseServiceSuper: DatabaseService, entityConstructor: any) {
+        this.databaseServiceSuper = databaseServiceSuper;
         this.entityConstructor = entityConstructor;
+    }
+
+    createTable(entity: any): Promise<any> {
+        const proto = Object.getPrototypeOf(entity);
+        if (!proto[`isEntity`]) {
+            console.error('Parameter is not an entity. Missing property `isEntity` in the prototype.');
+        }
+        if (!proto[`getCreateSql`]) {
+            console.error('Parameter is not an entity. Missing method `getCreateSql` in the prototype.');
+        }
+        return this.databaseServiceSuper.executeSql(proto.getCreateSql());
+    }
+
+    save(entity: any): Promise<any> {
+        const proto = Object.getPrototypeOf(entity);
+        if (!proto[`isEntity`]) {
+            console.error('Parameter is not an entity. Missing property `isEntity` in the prototype.');
+        }
+        if (!proto[`getSqlInsertInto`]) {
+            console.error('Parameter is not an entity. Missing method `getSqlInsertInto` in the prototype.');
+        }
+        if (!proto[`getSqlUpdate`]) {
+            console.error('Parameter is not an entity. Missing method `getSqlUpdate` in the prototype.');
+        }
+        if (!proto[`getId`]) {
+            console.error('Parameter is not an entity. Missing method `getId` in the prototype.');
+        }
+        const id = proto.getId(entity);
+        const query = (id) ? proto.getSqlUpdate(entity) : proto.getSqlInsertInto(entity);
+
+        return new Promise<any>((resolve, reject) => {
+            this.databaseServiceSuper.checkTable(entity)
+                .then(exist => {
+                        if (exist) {
+                            this.databaseServiceSuper.executeSql(query)
+                                .then(queryResult => {
+                                    proto.setId(entity, queryResult.insertId);
+                                    resolve(entity);
+                                })
+                                .catch(reason => reject(reason));
+                        }
+                    }
+                )
+                .catch(reason => {
+                    reject('Table doesn\'t exist and has not been created - ' + reason);
+                });
+        });
     }
 
     /**

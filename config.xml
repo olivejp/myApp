@@ -1,5 +1,5 @@
 <widget xmlns="http://www.w3.org/ns/widgets" id="nc.jp.mobile" version="0.0.11">
-  <name>MyApp</name>
+  <name>Sido-Mobile</name>
   <description>An awesome Ionic/Cordova app.</description>
   <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
   <content src="index.html"/>

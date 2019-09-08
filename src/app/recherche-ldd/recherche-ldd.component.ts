@@ -4,7 +4,7 @@ import { DistributionLddRepository } from '../services/distribution.ldd.reposito
 import { File } from '@ionic-native/file/ngx';
 
 import { ToastController } from '@ionic/angular';
-import { IndexeddbService } from '../technical/orm/service/indexeddb.service';
+import { IndexeddbService } from '../technical/service/indexeddb.service';
 import { IMAGE_FOLDER_NAME } from '../constant';
 
 @Component({

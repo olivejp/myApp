@@ -26,6 +26,10 @@ function setId(entity: any, id: any) {
     }
 }
 
+/**
+ * Pour une entity donnée, cette méthode va retourner la valeur de son ID
+ * @param entity: any
+ */
 function getId(entity: any): any {
     const columns = Object.getPrototypeOf(entity)[`columns`];
     for (const entry of columns.entries()) {
@@ -38,6 +42,10 @@ function getId(entity: any): any {
     return undefined;
 }
 
+/**
+ * Pour une entity donnée, cette méthode va retourner la requête UPDATE
+ * @param entity: any
+ */
 function getSqlUpdate(entity: any): string {
     const columns = Object.getPrototypeOf(entity)[`columns`];
     const tableName = Object.getPrototypeOf(entity)[`tableName`];
@@ -66,9 +74,14 @@ function getSqlUpdate(entity: any): string {
     return sqlUpdate;
 }
 
+/**
+ * Pour une entity donnée, cette méthode va retourner la requête SQL INSERT INTO pour l'insérer en base.
+ * @param entity: any
+ */
 function getSqlInsertInto(entity: any): string {
     const columns = Object.getPrototypeOf(entity)[`columns`];
     const tableName = Object.getPrototypeOf(entity)[`tableName`];
+    // noinspection SqlNoDataSourceInspection
     let sqlInsert: string = 'INSERT INTO ' + tableName + ' (';
     for (const entry of columns.entries()) {
         const key = entry[0];
@@ -94,6 +107,10 @@ function getSqlInsertInto(entity: any): string {
     return sqlInsert;
 }
 
+/**
+ * Function used as a decorator on Class properties
+ * @param columnDefinition: ColumnDefinition
+ */
 export function Column(columnDefinition: ColumnDefinition): any {
     return (target, key) => {
         // Recherche ou création d'une propriété `columns` dans le prototype de la classe
