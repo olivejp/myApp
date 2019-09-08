@@ -39,7 +39,7 @@ export abstract class AbstractRepository<T, I> {
         const query = (id) ? proto.getSqlUpdate(entity) : proto.getSqlInsertInto(entity);
 
         return new Promise<any>((resolve, reject) => {
-            this.databaseServiceSuper.checkTable(entity)
+            this.databaseServiceSuper.checkTableOrCreate(entity)
                 .then(exist => {
                         if (exist) {
                             this.databaseServiceSuper.executeSql(query)
@@ -48,6 +48,8 @@ export abstract class AbstractRepository<T, I> {
                                     resolve(entity);
                                 })
                                 .catch(reason => reject(reason));
+                        } else {
+                            reject('Table doesn\'t exist');
                         }
                     }
                 )

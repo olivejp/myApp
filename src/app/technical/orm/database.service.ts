@@ -38,7 +38,7 @@ export class DatabaseService {
         return this.db.executeSql(proto.getCreateSql());
     }
 
-    checkTable(entity: any): Promise<boolean> {
+    checkTableOrCreate(entity: any): Promise<boolean> {
         const proto = Object.getPrototypeOf(entity);
         if (!proto[`isEntity`]) {
             console.error('Parameter is not an entity. Missing property `isEntity` in the prototype.');
