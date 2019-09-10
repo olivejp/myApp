@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {ScannerComponent} from './scanner/scanner.component';
-import {SignatureComponent} from './signature/signature.component';
-import {MenuPrincipalComponent} from './menu-principal/menu-principal.component';
-import {RechercheLddComponent} from './recherche-ldd/recherche-ldd.component';
+import {SignatureComponent} from './page/signature/signature.component';
+import {MenuPrincipalComponent} from './page/menu-principal/menu-principal.component';
+import {RechercheLddComponent} from './page/recherche-ldd/recherche-ldd.component';
 
 const routes: Routes = [
   {
@@ -22,15 +21,12 @@ const routes: Routes = [
     component: SignatureComponent
   },
   {
-    path: 'scanner',
-    component: ScannerComponent
-  },
-  {
     path: 'recherche-ldd',
     component: RechercheLddComponent
   },
-  { path: 'login',    loadChildren: './login/login.module#LoginPageModule'  },
-  { path: 'text-to-speech', loadChildren: './text-to-speech/text-to-speech.module#TextToSpeechPageModule' },  { path: 'geolocalisation', loadChildren: './geolocalisation/geolocalisation.module#GeolocalisationPageModule' }
+  { path: 'login',    loadChildren: './page/login/login.module#LoginPageModule'  },
+  { path: 'text-to-speech', loadChildren: './page/text-to-speech/text-to-speech.module#TextToSpeechPageModule' },
+  { path: 'geolocalisation', loadChildren: './page/geolocalisation/geolocalisation.module#GeolocalisationPageModule' }
 
 
 ];

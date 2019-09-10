@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import { GeolocalService } from '../services/geolocal.service';
+import { GeolocalService } from '../../services/geolocal.service';
 import { Geoposition } from '@ionic-native/geolocation/ngx';
 import { Observable } from 'rxjs';
 

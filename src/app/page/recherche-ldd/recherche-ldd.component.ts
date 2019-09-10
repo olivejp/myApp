@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { DistributionLddEntity } from '../domain/distribution-ldd.entity';
-import { DistributionLddRepository } from '../services/distribution.ldd.repository';
-import { File } from '@ionic-native/file/ngx';
-
-import { ToastController } from '@ionic/angular';
-import { IndexeddbService } from '../technical/service/indexeddb.service';
-import { IMAGE_FOLDER_NAME } from '../constant';
+import {Component, OnInit} from '@angular/core';
+import {DistributionLddEntity} from '../../domain/distribution-ldd.entity';
+import {File} from '@ionic-native/file/ngx';
+import {ToastController} from '@ionic/angular';
+import {IndexeddbService} from '../../technical/service/indexeddb.service';
+import {IMAGE_FOLDER_NAME} from '../../constant';
+import {DistributionLddRepository} from '../../services/distribution.ldd.repository';
 
 @Component({
     selector: 'app-recherche-ldd',
@@ -14,13 +13,13 @@ import { IMAGE_FOLDER_NAME } from '../constant';
 })
 export class RechercheLddComponent implements OnInit {
     private numLddSearch: number;
-    distriLdd: DistributionLddEntity;
     private imageUrl;
+    distriLdd: DistributionLddEntity;
 
     constructor(private lddRepository: DistributionLddRepository,
-        private file: File,
-        private toastController: ToastController,
-        private storage: IndexeddbService) {
+                private file: File,
+                private toastController: ToastController,
+                private storage: IndexeddbService) {
     }
 
     ngOnInit() {

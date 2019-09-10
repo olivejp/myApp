@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Annonce } from 'src/app/domain/annonce.entity';
+import { Annonce } from 'src/app/dto/annonce.dto';
 
 @Component({
   selector: 'app-annonce',

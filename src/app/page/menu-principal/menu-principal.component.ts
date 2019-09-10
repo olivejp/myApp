@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { DistributionLddRepository } from '../services/distribution.ldd.repository';
-import { ActionSheetController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
-import { Annonce } from '../domain/annonce.entity';
+import {Component, OnInit} from '@angular/core';
+import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
+import {Router} from '@angular/router';
+import {ActionSheetController, ToastController} from '@ionic/angular';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'app-menu-principal',
@@ -17,11 +14,10 @@ export class MenuPrincipalComponent implements OnInit {
     annonces: any;
 
     constructor(private actionSheetController: ActionSheetController,
-        private barcodeScanner: BarcodeScanner,
-        private router: Router,
-        private lddRepository: DistributionLddRepository,
-        private toastController: ToastController,
-        private http: HttpClient) {
+                private barcodeScanner: BarcodeScanner,
+                private router: Router,
+                private toastController: ToastController,
+                private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -30,7 +26,7 @@ export class MenuPrincipalComponent implements OnInit {
     lancerCapture() {
         this.barcodeScanner.scan().then(barcodeData => {
             console.log('Barcode data', barcodeData);
-            this.router.navigate(['/signature', { codeBarre: barcodeData.text }]);
+            this.router.navigate(['/signature', {codeBarre: barcodeData.text}]);
         }).catch(err => {
             console.log('Error', err);
         });
@@ -75,9 +71,7 @@ export class MenuPrincipalComponent implements OnInit {
 
     appelWs() {
         this.http.get('https://oliweb-ec245.firebaseio.com/annonces.json').subscribe(annonces => {
-            this.annonces = Object.keys(annonces).map(function (key) {
-                return annonces[key];
-            });
+            this.annonces = Object.keys(annonces).map(key => annonces[key]);
             console.log(this.annonces);
         });
     }

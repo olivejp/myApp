@@ -3,10 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {map} from 'rxjs/operators';
 import {SignaturePad} from 'angular4-signaturepad/signature-pad';
-import {FileImageService} from '../services/core/file-image.service';
-import {DistributionLddRepository} from '../services/distribution.ldd.repository';
-import {DistributionLddEntity} from '../domain/distribution-ldd.entity';
+import {FileImageService} from '../../services/core/file-image.service';
+import {DistributionLddEntity} from '../../domain/distribution-ldd.entity';
 import {Events} from '@ionic/angular';
+import {DistributionLddRepository} from '../../services/distribution.ldd.repository';
 
 @Component({
     selector: 'app-signature',
