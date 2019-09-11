@@ -5,18 +5,24 @@
 </ion-header>
 
 <ion-content>
-    <ion-card>
-        <ion-card-content>
-            <ion-item>
-                <ion-label>Login</ion-label>
-                <ion-input type="text" placeholder="Paul"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label>Password</ion-label>
-                <ion-input type="password" palceholder="OLIVE"></ion-input>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
-    <ion-button color="success" (click)="signIn()"> Sign In</ion-button>
-    <ion-button color="primary" [routerLink]="['/menu']">Menu</ion-button>
+    <ion-grid style="background-color: blue;padding: 75% 25px; text-align: center">
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-item>
+                        <ion-input type="text" placeholder="Login"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input type="password" placeholder="Password"></ion-input>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button color="success" (click)="signIn()"> Sign In</ion-button>
+                <ion-button color="primary" [routerLink]="['/menu']">Menu</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

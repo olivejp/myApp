@@ -4,6 +4,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {FileImageService} from './services/core/file-image.service';
 import {SQLite} from '@ionic-native/sqlite/ngx';
+import {createConnection} from 'typeorm';
 
 @Component({
     selector: 'app-root',
@@ -26,6 +27,10 @@ export class AppComponent {
         this.platform.ready()
             .then(str => this.fileImageService.initializationImageDirectory())// Check that the image folder has been created or create it.
             .then(value => this.init())
+            .then(value => createConnection({
+                type: 'sqlite',
+                database: 'sido-mobile'
+            }))
             .catch(reason => console.error(reason));
     }
 

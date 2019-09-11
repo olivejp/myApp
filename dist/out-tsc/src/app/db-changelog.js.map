@@ -1,0 +1,1 @@
+{"version":3,"file":"db-changelog.js","sourceRoot":"","sources":["../../../../src/app/db-changelog.ts"],"names":[],"mappings":"AAAA,2CAA2C;AAC3C,MAAM,oBAAoB,GAAG,yHAAyH,CAAC;AACvJ,MAAM,eAAe,GAAG,qFAAqF,CAAC;AAE9G,MAAM,CAAC,MAAM,sBAAsB,GAAG,IAAI,GAAG,EAAE;KAC1C,GAAG,CAAC,CAAC,EAAE,oBAAoB,CAAC;KAC5B,GAAG,CAAC,CAAC,EAAE,eAAe,CAAC,CAAC"}
