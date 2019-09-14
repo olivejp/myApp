@@ -40,9 +40,7 @@ export class SignatureComponent implements OnInit {
         })).subscribe(value => console.log(value));
 
         this.events.subscribe('updateScreenSignature', () => {
-            this.zone.run(() => {
-                console.log('force update');
-            });
+            this.zone.run(args => {});
         });
     }
 

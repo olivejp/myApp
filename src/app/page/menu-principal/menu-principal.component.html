@@ -1,14 +1,47 @@
 <ion-content text-center [scrollEvents]="true">
-    <ion-button size="large" color="primary" (click)="playActionSheet()">Rechercher LDD</ion-button>
-    <ion-button size="large" color="primary" (click)="lancerCapture()">Scanner objet</ion-button>
-    <ion-button size="large" color="primary" [routerLink]="['/recherche-ldd']">Rechercher Objet</ion-button>
-    <ion-button size="large" color="primary" [routerLink]="['/login']">Login</ion-button>
-    <ion-button size="large" color="primary" [routerLink]="['/text-to-speech']">Text To Speech</ion-button>
-    <ion-button size="large" color="primary" [routerLink]="['/geolocalisation']">Geolocalisation</ion-button>
-    <ion-button size="large" color="primary" (click)="appelWs()">Test Appel WS</ion-button>
-    <div *ngIf="annonces">
-        <div *ngFor="let annonce of annonces">
-            <app-annonce [annonce]="annonce">></app-annonce>
-        </div>
-    </div>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" (click)="playActionSheet()">Rechercher LDD</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" (click)="lancerCapture()">Scanner objet</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" [routerLink]="['/recherche-ldd']">Rechercher Objet</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" [routerLink]="['/login']">Login</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" [routerLink]="['/text-to-speech']">Text To Speech</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" [routerLink]="['/geolocalisation']">Geolocalisation
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button size="large" color="primary" (click)="appelWs()">Test Appel WS</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="annonces">
+            <ion-col>
+                <div *ngFor="let annonce of annonces">
+                    <app-annonce [annonce]="annonce">></app-annonce>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

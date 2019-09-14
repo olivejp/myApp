@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {Router} from '@angular/router';
-import {ActionSheetController, ToastController} from '@ionic/angular';
+import {ActionSheetController, Events, ToastController} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
+import {NetworkService} from '../../services/core/network.service';
+import {MotifService} from '../../services/core/motif.service';
+import {MesureService} from '../../services/core/mesure.service';
 
 @Component({
     selector: 'app-menu-principal',
@@ -17,7 +20,9 @@ export class MenuPrincipalComponent implements OnInit {
                 private barcodeScanner: BarcodeScanner,
                 private router: Router,
                 private toastController: ToastController,
-                private http: HttpClient) {
+                private motifsService: MotifService,
+                private mesureService: MesureService
+    ) {
     }
 
     ngOnInit() {
@@ -70,9 +75,11 @@ export class MenuPrincipalComponent implements OnInit {
     }
 
     appelWs() {
-        this.http.get('https://oliweb-ec245.firebaseio.com/annonces.json').subscribe(annonces => {
-            this.annonces = Object.keys(annonces).map(key => annonces[key]);
-            console.log(this.annonces);
+        this.motifsService.getMotifs().subscribe(motifs => {
+            this.annonces = motifs;
         });
+        // this.mesureService.getMesures().subscribe(mesures => {
+        //     this.annonces = mesures;
+        // });
     }
 }

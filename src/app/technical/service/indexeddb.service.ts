@@ -12,11 +12,19 @@ export class IndexeddbService {
         this.storage = storage;
     }
 
+    removeKey(key: string): Promise<any> {
+        return this.storage.remove(`${INDEXEDDB_KEY}-${key}`);
+    }
+
     getLocalData(key): Promise<any> {
         return this.storage.get(`${INDEXEDDB_KEY}-${key}`);
     }
 
     setLocalData(key, data): Promise<any> {
+        return this.storage.set(`${INDEXEDDB_KEY}-${key}`, data);
+    }
+
+    pushData(key, data): Promise<any> {
         return this.storage.get(`${INDEXEDDB_KEY}-${key}`).then(storedData => {
             if (!Array.isArray(data)) {
                 if (storedData) {
@@ -30,4 +38,6 @@ export class IndexeddbService {
             return this.storage.set(`${INDEXEDDB_KEY}-${key}`, storedData);
         });
     }
+
+
 }

@@ -1,39 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Geolocalisation</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" defaultHref="menu"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Géolocalisation</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-grid *ngIf=position>
-    <ion-row>
-      <ion-item>
-        <ion-label position="stacked">Altitude</ion-label>
-        <ion-input>{{position.coords.altitude}}</ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row>
-      <ion-item>
-        <ion-label position="stacked">Latitude</ion-label>
-        <ion-input>{{position.coords.latitude}}</ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row>
-      <ion-item>
-        <ion-label position="stacked">Longitude</ion-label>
-        <ion-input>{{position.coords.longitude}}</ion-input>
-      </ion-item>
-    </ion-row>
-    <ion-row>
-      <ion-item>
-        <ion-label position="stacked">Last pull</ion-label>
-        <ion-input>{{formatedDate}}</ion-input>
-      </ion-item>
-    </ion-row>
-  </ion-grid>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button [routerLink]="['/menu']">
-        <ion-icon name="return-left"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <ion-grid *ngIf=position>
+        <ion-row>
+            <ion-item>
+                <ion-label position="stacked">Altitude</ion-label>
+                <ion-input>{{position.coords.altitude}}</ion-input>
+            </ion-item>
+        </ion-row>
+        <ion-row>
+            <ion-item>
+                <ion-label position="stacked">Latitude</ion-label>
+                <ion-input>{{position.coords.latitude}}</ion-input>
+            </ion-item>
+        </ion-row>
+        <ion-row>
+            <ion-item>
+                <ion-label position="stacked">Longitude</ion-label>
+                <ion-input>{{position.coords.longitude}}</ion-input>
+            </ion-item>
+        </ion-row>
+        <ion-row>
+            <ion-item>
+                <ion-label position="stacked">Last pull</ion-label>
+                <ion-input>{{formatedDate}}</ion-input>
+            </ion-item>
+        </ion-row>
+    </ion-grid>
 </ion-content>

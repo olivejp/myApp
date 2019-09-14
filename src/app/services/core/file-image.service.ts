@@ -14,22 +14,20 @@ export class FileImageService {
      * Retournera true si le répertoire existe ou a bien été créé, false sinon.
      */
     initializationImageDirectory(): Promise<DirectoryEntry> {
+        console.log('Initialisation Image Directory');
         return this.file.checkDir(this.file.dataDirectory, IMAGE_FOLDER_NAME)
             .then(() => this.getDirectory())
             .catch(() => this.createDirectory());
     }
 
     private createDirectory(): Promise<DirectoryEntry> {
-        return new Promise<DirectoryEntry>((resolve, reject) => {
-            this.file.createDir(this.file.dataDirectory, IMAGE_FOLDER_NAME, true)
-                .then(directoryEntry => resolve(directoryEntry))
-                .catch(reason => reject('Erreur lors de la création du dossier : ' + reason));
-        });
+        console.log('Création Image Directory');
+        return this.file.createDir(this.file.dataDirectory, IMAGE_FOLDER_NAME, true);
     }
 
     getDirectory(): Promise<DirectoryEntry> {
-        return this.file.resolveDirectoryUrl(this.file.dataDirectory.concat(IMAGE_FOLDER_NAME))
-            .then(directoryEntry => new Promise<DirectoryEntry>(resolve => resolve(directoryEntry)));
+        console.log('Récupération Image Directory');
+        return this.file.resolveDirectoryUrl(this.file.dataDirectory.concat(IMAGE_FOLDER_NAME));
     }
 
     /**

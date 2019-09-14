@@ -24,9 +24,13 @@ import {GeolocalService} from './services/geolocal.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {HttpClientModule} from '@angular/common/http';
 import {AnnonceComponent} from './annonce/annonce.component';
+import {HttpService} from './services/core/http.service';
+import {SidoToolbarComponent} from './sido-toolbar/sido-toolbar.component';
+import {MesureService} from './services/core/mesure.service';
+import {MotifService} from './services/core/motif.service';
 
 @NgModule({
-    declarations: [AppComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent, AnnonceComponent],
+    declarations: [AppComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent, AnnonceComponent, SidoToolbarComponent],
     entryComponents: [],
     imports: [
         BrowserModule,
@@ -54,6 +58,9 @@ import {AnnonceComponent} from './annonce/annonce.component';
         ToastController,
         GeolocalService,
         Geolocation,
+        HttpService,
+        MesureService,
+        MotifService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]
