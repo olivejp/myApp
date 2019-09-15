@@ -28,9 +28,17 @@ import {HttpService} from './services/core/http.service';
 import {SidoToolbarComponent} from './sido-toolbar/sido-toolbar.component';
 import {MesureService} from './services/core/mesure.service';
 import {MotifService} from './services/core/motif.service';
+import {MotifMesureService} from './services/core/motif.mesure.service';
 
 @NgModule({
-    declarations: [AppComponent, SignatureComponent, MenuPrincipalComponent, RechercheLddComponent, AnnonceComponent, SidoToolbarComponent],
+    declarations: [
+        AppComponent,
+        SignatureComponent,
+        MenuPrincipalComponent,
+        RechercheLddComponent,
+        AnnonceComponent,
+        SidoToolbarComponent
+    ],
     entryComponents: [],
     imports: [
         BrowserModule,
@@ -61,6 +69,7 @@ import {MotifService} from './services/core/motif.service';
         HttpService,
         MesureService,
         MotifService,
+        MotifMesureService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

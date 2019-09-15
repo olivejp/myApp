@@ -19,9 +19,7 @@ export class MenuPrincipalComponent implements OnInit {
     constructor(private actionSheetController: ActionSheetController,
                 private barcodeScanner: BarcodeScanner,
                 private router: Router,
-                private toastController: ToastController,
-                private motifsService: MotifService,
-                private mesureService: MesureService
+                private toastController: ToastController
     ) {
     }
 
@@ -72,14 +70,5 @@ export class MenuPrincipalComponent implements OnInit {
             }]
         });
         await actionSheet.present();
-    }
-
-    appelWs() {
-        this.motifsService.getMotifs().subscribe(motifs => {
-            this.annonces = motifs;
-        });
-        // this.mesureService.getMesures().subscribe(mesures => {
-        //     this.annonces = mesures;
-        // });
     }
 }

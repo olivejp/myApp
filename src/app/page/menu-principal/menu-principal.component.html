@@ -33,15 +33,9 @@
         </ion-row>
         <ion-row>
             <ion-col>
-                <ion-button size="large" color="primary" (click)="appelWs()">Test Appel WS</ion-button>
-            </ion-col>
-        </ion-row>
-        <ion-row *ngIf="annonces">
-            <ion-col>
-                <div *ngFor="let annonce of annonces">
-                    <app-annonce [annonce]="annonce">></app-annonce>
-                </div>
+                <ion-button size="large" color="primary" [routerLink]="['/distribution']">Distribution</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>
+<app-sido-toolbar></app-sido-toolbar>

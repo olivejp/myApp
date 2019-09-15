@@ -4,13 +4,13 @@ import {NetworkService} from './network.service';
 import {IndexeddbService} from '../../technical/service/indexeddb.service';
 import {GetService} from './get.service';
 
-export const MESURE_URL = 'https://sidomobile-c6d38.firebaseio.com/mesures.json';
-export const MESURE_KEY = 'MESURES';
+export const MESURE_URL = 'https://sidomobile-c6d38.firebaseio.com/motif-mesure.json';
+export const MESURE_KEY = 'MOTIF-MESURE';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MesureService extends GetService<any> {
+export class MotifMesureService extends GetService<any> {
 
     resourceUrl: string;
     indexKey: string;
@@ -22,5 +22,4 @@ export class MesureService extends GetService<any> {
         this.resourceUrl = MESURE_URL;
         this.indexKey = MESURE_KEY;
     }
-
 }

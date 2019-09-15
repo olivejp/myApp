@@ -24,6 +24,10 @@ export class IndexeddbService {
         return this.storage.set(`${INDEXEDDB_KEY}-${key}`, data);
     }
 
+    clear(): Promise<void> {
+        return this.storage.clear();
+    }
+
     pushData(key, data): Promise<any> {
         return this.storage.get(`${INDEXEDDB_KEY}-${key}`).then(storedData => {
             if (!Array.isArray(data)) {

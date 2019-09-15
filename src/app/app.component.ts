@@ -3,8 +3,8 @@ import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {FileImageService} from './services/core/file-image.service';
 import {SQLite} from '@ionic-native/sqlite/ngx';
-import {NetworkService} from './services/core/network.service';
-import {NextObserver, Subscription} from 'rxjs';
+import {NextObserver} from 'rxjs';
+import {IndexeddbService} from './technical/service/indexeddb.service';
 
 @Component({
     selector: 'app-root',
@@ -19,7 +19,8 @@ export class AppComponent {
         private sqlite: SQLite,
         private platform: Platform,
         private splashScreen: SplashScreen,
-        private fileImageService: FileImageService
+        private fileImageService: FileImageService,
+        private storage: IndexeddbService
     ) {
         this.initializeApp();
     }

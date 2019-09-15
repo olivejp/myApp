@@ -26,7 +26,8 @@ const routes: Routes = [
   },
   { path: 'login',    loadChildren: './page/login/login.module#LoginPageModule'  },
   { path: 'text-to-speech', loadChildren: './page/text-to-speech/text-to-speech.module#TextToSpeechPageModule' },
-  { path: 'geolocalisation', loadChildren: './page/geolocalisation/geolocalisation.module#GeolocalisationPageModule' }
+  { path: 'geolocalisation', loadChildren: './page/geolocalisation/geolocalisation.module#GeolocalisationPageModule' },  { path: 'distribution', loadChildren: './page/distribution/distribution.module#DistributionPageModule' }
+
 
 
 ];
