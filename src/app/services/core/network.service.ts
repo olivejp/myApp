@@ -26,7 +26,7 @@ export class NetworkService {
     }
 
     subscribeOnChange(): Observable<any> {
-        return this.network.onchange();
+        return this.network.onChange();
     }
 
     isConnected(): Observable<boolean> {
